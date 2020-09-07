@@ -361,28 +361,24 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
     }
 
     @objc func cityDropDownButtonTapped(sender: UIButton) {
-//        //cityDropDownView.cityStackView.subviews[0].removeFromSuperview()
-//        
-//        
-//        
-//        for index in 1...(cities.count-1) {
-//            let city = cities[index]
-//            if city.name == sender.titleLabel?.text {
-//                let cityChoosen = cities.remove(at: index)
-//                //print(cities.count)
-//                cities.insert(cityChoosen, at: 0)
-//                print(cities.count)
-//                print(cityDropDownView.cityStackView.arrangedSubviews.count)
-//                //clearCityStackView()
-//                
-//                //print(cityDropDownView.cities.count)
-//                
-//                //print(cityDropDownView.cityStackView.arrangedSubviews.count)
-//                //updateCityDropDown()
-//                break
-//            }
-//            
-//        }
+        //cityDropDownView.cityStackView.subviews[0].removeFromSuperview()
+
+
+
+        for index in 1...(cities.count-1) {
+            let city = cities[index]
+            if city.name == sender.titleLabel?.text {
+                let cityChoosen = cities.remove(at: index)
+                //print(cities.count)
+                cities.insert(cityChoosen, at: 0)
+                print(cities.count)
+                print(cityDropDownView.cityStackView.arrangedSubviews.count)
+                clearCityStackView()
+                updateCityDropDown()
+                break
+            }
+
+        }
     }
     func clearCityStackView(){
         cityDropDownView.citiesButtonsArray.removeAll()
