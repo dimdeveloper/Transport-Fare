@@ -11,12 +11,20 @@ import UIKit
 extension UIStackView {
     func addBackground(color: UIColor) {
         let subView = UIView(frame: bounds)
+        subView.tag = 99
         subView.backgroundColor = color
         subView.layer.cornerRadius = 20
 
         subView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         insertSubview(subView, at: 0)
 
+    }
+    func removeBackground(){
+        subviews.forEach { subview in
+            if subview.tag == 99 {
+                subview.removeFromSuperview()
+            }
+        }
     }
 }
 extension UIView {

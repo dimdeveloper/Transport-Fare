@@ -331,20 +331,22 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
 
     func updateDropDownMenuOfCyties(){
         if dropDownMenuOfcitysIsHidden == false {
-            //cityDropDownView.cityStackView.subviews[0].removeFromSuperview()
+            cityDropDownView.cityStackView.removeBackground()
             cityDropDownView.cityStackView.spacing = 10
             hideCytiesDropDownMenu(isHidden: false)
-//            cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 0.5))
-            //cityDropDownView.cityStackView.subviews[0].layer.opacity = 0.5
+            // add opacity backGround
+            cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 0.5))
             transportTypeView.blur()
             backButton.isHidden = false
             
             
         } else {
-            //cityDropDownView.cityStackView.subviews[0].removeFromSuperview()
+    
+            cityDropDownView.cityStackView.removeBackground()
             cityDropDownView.cityStackView.spacing = -33
             hideCytiesDropDownMenu(isHidden: true)
-            //cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 1))
+            // adding nonOpacity background
+            cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 1))
             transportTypeView.unblur()
             backButton.isHidden = true
 
