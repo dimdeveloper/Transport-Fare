@@ -7,13 +7,18 @@
 //
 
 import Foundation
-struct City {
+struct City: Codable, Equatable {
+    static func == (lhs: City, rhs: City) -> Bool {
+        return lhs.name == rhs.name
+    }
+    
+    
     let name: String
     let tram: TransportModel?
     let trolleybus: TransportModel
     let autobus: TransportModel
 }
-struct TransportModel {
+struct TransportModel: Codable {
     let transportType: String
     let routeNumbers: [String]
     let ticketPrice: Int

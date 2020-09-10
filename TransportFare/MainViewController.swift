@@ -53,7 +53,10 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
             updateDropDownMenuOfCyties()
         }
     }
-
+    var vinnitsa: City?
+    var lviv: City?
+    var zhytomyr: City?
+    var ivanoFrankivsk: City?
     let defaults = UserDefaults.standard
     var transport: TransportModel?
     var route: String!
@@ -76,13 +79,12 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let vinnitsa = City(name: "Вінниця", tram: vinnitsaTram, trolleybus: vinnitsaTrolleybus, autobus: vinnitsaAutobus)
-        let lviv = City(name: "Львів", tram: lvivTram, trolleybus: lvivTrolleybus, autobus: lvivAutobus)
-        let zhytomyr = City(name: "Житомир", tram: zhytomyrTram, trolleybus: zhytomyrTrolleybus, autobus: zhytomyrAutobus)
-        let ivanoFrankivsk = City(name: "Івано-Франківськ", tram: ivanoFrankivskTram, trolleybus: ivanoFrankivskTrolleybus, autobus: ivanoFrankivskAutobus)
-        cities = [vinnitsa, lviv, zhytomyr, ivanoFrankivsk]
-        
-        city = vinnitsa
+        vinnitsa = City(name: "Вінниця", tram: vinnitsaTram, trolleybus: vinnitsaTrolleybus, autobus: vinnitsaAutobus)
+        lviv = City(name: "Львів", tram: lvivTram, trolleybus: lvivTrolleybus, autobus: lvivAutobus)
+        zhytomyr = City(name: "Житомир", tram: zhytomyrTram, trolleybus: zhytomyrTrolleybus, autobus: zhytomyrAutobus)
+        ivanoFrankivsk = City(name: "Івано-Франківськ", tram: ivanoFrankivskTram, trolleybus: ivanoFrankivskTrolleybus, autobus: ivanoFrankivskAutobus)
+        cities = Array(arrayLiteral: vinnitsa!, lviv!, zhytomyr!, ivanoFrankivsk!)
+
         //transportTypeView.backgroundColor = UIColor.clear
         
         //blurView.isHidden = true
@@ -95,10 +97,12 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
         buttonsModel.delegate = self
         paymentView.delegate = self
         cityDropDownView.delegate = self
+        loadUserDefaults()
         updateCityDropDown()
         dropDownMenuOfcitysIsHidden = true
         updateDropDownMenuOfCyties()
-        informationView.informationCheckMark.isSelected = defaults.object(forKey: "InformationButtoncheckMark") as? Bool ?? false
+        
+        //city = defaults.object(forKey: "CityChoosen") as? City ?? vinnitsa
         
         updateInformationView()
         
@@ -237,11 +241,11 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
 
 
     }
-    func makePayment(textMsg: String){
-        let sms = textMsg
-        let activityController = UIActivityViewController(activityItems: [sms], applicationActivities: nil)
-        present(activityController, animated: true, completion: nil)
-    }
+//    func makePayment(textMsg: String){
+//        let sms = textMsg
+//        let activityController = UIActivityViewController(activityItems: [sms], applicationActivities: nil)
+//        present(activityController, animated: true, completion: nil)
+//    }
     func sendSms(textMsg: String, quantity: Int) {
         //makePayment(textMsg: textMsg)
         if !MFMessageComposeViewController.canSendText() {
@@ -249,11 +253,9 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
         } else {
             let composeVC = MFMessageComposeViewController()
             composeVC.messageComposeDelegate = self
-             
             // Configure the fields of the interface.
             composeVC.recipients = ["827"]
             composeVC.body = textMsg
-             
             // Present the view controller modally.
             self.present(composeVC, animated: true, completion: nil)
         }
@@ -272,9 +274,7 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
                         horizontalStackView.spacing = 20
                 
             }
-
         }
-        //shadowForView(shadowView: routesView)
 
     }
     func clearButtonsAndStack(){
@@ -292,8 +292,6 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
     func updateInformationView(){
         if !informationView.informationCheckMark.isSelected {
             informationView.isHidden = false
-            
-            //transportTypeView.blur()
             mainBackButton.isHidden = false
             UIView.animate(withDuration: 0.0, animations: {
                 
@@ -320,15 +318,12 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
 
             present(activityVC, animated: true, completion: nil)
-//                    transportTypeView.blur(2.0)
-//                    backButton.isHidden = false
+
         } else {
             print("the URL is not avaolable!")
         }
     }
     
-
-
     func updateDropDownMenuOfCyties(){
         if dropDownMenuOfcitysIsHidden == false {
             cityDropDownView.cityStackView.removeBackground()
@@ -338,101 +333,79 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
             cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 0.5))
             transportTypeView.blur()
             backButton.isHidden = false
-            
-            
         } else {
-    
             cityDropDownView.cityStackView.removeBackground()
             cityDropDownView.cityStackView.spacing = -33
-            hideCytiesDropDownMenu(isHidden: true)
+            hideCytiesDropDownMenu(isHidden: dropDownMenuOfcitysIsHidden)
             // adding nonOpacity background
             cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 1))
             transportTypeView.unblur()
             backButton.isHidden = true
-
-            
         }
     }
     func menuButtonTapped() {
         dropDownMenuOfcitysIsHidden = !dropDownMenuOfcitysIsHidden
-   
         updateDropDownMenuOfCyties()
-        
-
-        
     }
 
     @objc func cityDropDownButtonTapped(sender: UIButton) {
-        //cityDropDownView.cityStackView.subviews[0].removeFromSuperview()
-
-
-
-        for index in 1...(cities.count-1) {
-            let city = cities[index]
+        for city in cities {
+            //var city = cities[index]
+            let index = cities.firstIndex(of: city)
             if city.name == sender.titleLabel?.text {
-                let cityChoosen = cities.remove(at: index)
-                //print(cities.count)
+                let cityChoosen = cities.remove(at: index!)
                 cities.insert(cityChoosen, at: 0)
-                print(cities.count)
-                print(cityDropDownView.cityStackView.arrangedSubviews.count)
-                clearCityStackView()
-                updateCityDropDown()
+                //saving city choosing
+                let jsonEncoder = JSONEncoder()
+                if let data = try? jsonEncoder.encode(cityChoosen) {
+                    let userDefaults = UserDefaults.standard
+                    userDefaults.set(data, forKey: "CityChoosen")
+                }
                 break
             }
-
         }
+        clearCityStackView()
+        updateCityDropDown()
+        UIView.animate(withDuration: 0.0, animations: {
+        }) { _ in
+            self.dropDownMenuOfcitysIsHidden = true
+            self.updateDropDownMenuOfCyties()
+        }
+        
+    }
+    func loadUserDefaults(){
+        informationView.informationCheckMark.isSelected = defaults.object(forKey: "InformationButtoncheckMark") as? Bool ?? false
+        if let decodedData = UserDefaults.standard.object(forKey: "CityChoosen") as? Data {
+                    print(decodedData)
+                    print(":)")
+                    let jsonDecoder = JSONDecoder()
+                    city = try? jsonDecoder.decode(City.self, from: decodedData)
+                } else {city = vinnitsa}
+        
+            let index = cities.firstIndex(of: city!)
+        let savedCity = cities.remove(at: index!)
+        cities.insert(savedCity, at: 0)
+        
     }
     func clearCityStackView(){
         cityDropDownView.citiesButtonsArray.removeAll()
         for subview in cityDropDownView.cityStackView.arrangedSubviews {
             subview.removeFromSuperview()
         }
-        
-        
     }
-//    func updateCitiesButtonsArray(){
-//        for city in cities {
-//            let button = UIButton()
-//            button.setTitle(city.name, for: .normal)
-//            button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-//            //button.backgroundColor = UIColor.systemBlue
-//            citiesDropDownMenuButtons.append(button)
-//
-//        }
-//    }
-//    func updateCityDropDownMenu(){
-//        for button in citiesDropDownMenuButtons {
-//            cityDropDownView.cityStackView.addArrangedSubview(button)
-//        }
-//
-//
-//    }
+
     func updateCityDropDown(){
         cityDropDownView.cities = cities
         cityDropDownView.updateCityDropDownButtons()
         cityDropDownView.updateCityDropDownMenu()
-        
         updateDropDownMenuOfCyties()
     }
     func hideCytiesDropDownMenu(isHidden: Bool){
-         
         for index in 1...(cityDropDownView.cityStackView.subviews.count-1) {
             cityDropDownView.cityStackView.subviews[index].isHidden = isHidden
         }
        // cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 1))
     }
-   /* func updateinformationLabelText(){
-        InformationView().informationViewLabel.text = "Цей додаток не є платіжним засобом і створений лише для спрощення процесу оплати проїзду у міському транспорті. Оплата проїзду здійснюється через відсилання смс повідомлення із відповідним кодом згідно вибраного виду транспорту і маршруту. Оплата за проїзд стягується мобільним оператором який ви використовуєте для відправлення смс із кодом. Завдання цього додатку спростити пошук і відсилання відповідного коду. Цей додаток розповсюджується безкоштовно. Розробники цього додатку не несуть відповідальності за будь-які помилки, затримки платежів, тощо. Користувач цього додатку несе особисту відповідальність за перевірку смс на відповідність коду перед відправленням. Більш детально ознайомитися із правилами розрахунку за проїзд через відсилання смс із кодом ви можете ознайомитися на відповідних сторінках мобільних операторів. https://money.kyivstar.ua/catalog/city-transport-tickets https://pay.vodafone.ua/uk/oplata-transportu/sms-ticket https://www.lifecell.ua/uk/mobilnij-zvyazok/korysni-poslugy/sms-kvytok/ "
-           
-    } */
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
