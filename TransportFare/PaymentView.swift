@@ -8,7 +8,7 @@
 
 import UIKit
 protocol PaymentViewProtocol: class {
-    func sendSms (textMsg: String, quantity: Int)
+    func sendSms (textMsg: String)
 }
 class PaymentView: UIView {
     weak var delegate: PaymentViewProtocol?
@@ -21,7 +21,7 @@ class PaymentView: UIView {
     @IBOutlet weak var farePaymentButton: UIButton!
     @IBOutlet weak var ticketPriceLabel: UILabel!
     @IBAction func farePayment(_ sender: UIButton) {
-        delegate?.sendSms(textMsg: smsTextCode!, quantity: numberOfTickets)
+        delegate?.sendSms(textMsg: smsTextCode!)
     }
 
 

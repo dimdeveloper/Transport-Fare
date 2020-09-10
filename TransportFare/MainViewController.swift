@@ -84,10 +84,6 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
         zhytomyr = City(name: "Житомир", tram: zhytomyrTram, trolleybus: zhytomyrTrolleybus, autobus: zhytomyrAutobus)
         ivanoFrankivsk = City(name: "Івано-Франківськ", tram: ivanoFrankivskTram, trolleybus: ivanoFrankivskTrolleybus, autobus: ivanoFrankivskAutobus)
         cities = Array(arrayLiteral: vinnitsa!, lviv!, zhytomyr!, ivanoFrankivsk!)
-
-        //transportTypeView.backgroundColor = UIColor.clear
-        
-        //blurView.isHidden = true
         paymentView.isHidden = true
         routesView.isHidden = true
         informationView.scrollView.layer.cornerRadius = 10
@@ -101,29 +97,7 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
         updateCityDropDown()
         dropDownMenuOfcitysIsHidden = true
         updateDropDownMenuOfCyties()
-        
-        //city = defaults.object(forKey: "CityChoosen") as? City ?? vinnitsa
-        
         updateInformationView()
-        
-        
-        
-     
-        
-        
-        
-        
-
-       
-
-        
-        
-//        if traitCollection.userInterfaceStyle == .dark {
-//            routesView.backgroundColor = UIColor.systemBackground
-//        } else {
-//            routesView.backgroundColor = UIColor.systemBackground
-//        }
-//        routesView.backgroundColor = UIColor.systemBackground
         routesView.layer.cornerRadius = 10
         paymentView.layer.cornerRadius = 10
         informationView.layer.cornerRadius = 10
@@ -132,11 +106,7 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
         for button in transportTypeView.transportTypeButtons {
             button.layer.cornerRadius = 10
         }
-        
 
-        
-
-        // Do any additional setup after loading the view.
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -167,15 +137,10 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
                 }
         }
         }
-
-
-        
     }
     func updateRouteView(sender: UIButton ){
-        
         switch  sender.titleLabel?.text {
         case "Тб":
-            
             transport = city?.trolleybus
             mainBackButton.isHidden = false
             transportTypeView.blur(2.0)
@@ -183,9 +148,6 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
             updateRouteStackView(transport: transport!, widthOfVerticalStack: widthOfVerticalStack)
             routesView.isHidden = false
             animateRouteViewApper(sender: sender)
-            
-
-            
         case "Тм":
             transport = city?.tram
             mainBackButton.isHidden = false
@@ -194,7 +156,6 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
             updateRouteStackView(transport: transport!, widthOfVerticalStack: widthOfVerticalStack)
             routesView.isHidden = false
             animateRouteViewApper(sender: sender)
-
         case "Аб":
             transport = city?.autobus
             mainBackButton.isHidden = false
@@ -208,7 +169,6 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
         }
     }
     func delegateWithTransportType(sender: UIButton) {
-        //let routeNumber = (sender.titleLabel?.text)!
         updateRouteView(sender: sender)
     }
     func animateRouteViewApper(sender: UIButton){
@@ -225,11 +185,11 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
                     self.routesView.transform = .identity
                     self.routesView.center = self.view.center
                 }, completion: nil)
-                
             })
         }
         )
     }
+    // route button tapped
     func butonTapped(sender: UIButton) {
         guard let transport = transport else {print("there is no transport"); return}
         route = sender.titleLabel?.text
@@ -237,16 +197,13 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
         routesView.isHidden = true
         shadowForView(shadowView: paymentView)
         paymentView.isHidden = false
-        
-
-
     }
 //    func makePayment(textMsg: String){
 //        let sms = textMsg
 //        let activityController = UIActivityViewController(activityItems: [sms], applicationActivities: nil)
 //        present(activityController, animated: true, completion: nil)
 //    }
-    func sendSms(textMsg: String, quantity: Int) {
+    func sendSms(textMsg: String) {
         //makePayment(textMsg: textMsg)
         if !MFMessageComposeViewController.canSendText() {
             print("SMS services are not available")
