@@ -15,8 +15,8 @@ struct City: Codable, Equatable {
     
     let name: String
     let tram: TransportModel?
-    let trolleybus: TransportModel
-    let autobus: TransportModel
+    let trolleybus: TransportModel?
+    let autobus: TransportModel?
 }
 struct TransportModel: Codable {
     let transportType: String

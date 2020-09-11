@@ -26,9 +26,10 @@ class ButtonsModel {
         button.setTitle(arrayButton, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 25)
         button.backgroundColor = UIColor.systemBlue
-        button.frame = CGRect(x: 150, y: 150, width: 40, height: 50)
+        //button.frame = CGRect(x: 150, y: 150, width: 40, height: 50)
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        button.widthAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
+        //button.widthAnchor.constraint(equalToConstant: 40).isActive = true
         button.layer.cornerRadius = 5
         if UITraitCollection.current.userInterfaceStyle == .dark {
             button.setTitleColor(.white, for: .normal)
