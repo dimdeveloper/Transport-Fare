@@ -8,7 +8,9 @@
 
 import UIKit
 import MessageUI
-class MainViewController: UIViewController, TransportType, Buttons, PaymentViewProtocol, CityDropDown, MFMessageComposeViewControllerDelegate {
+class MainViewController: UIViewController, TransportType, Buttons, UICollectionViewDataSource, UICollectionViewDelegate, PaymentViewProtocol, CityDropDown, MFMessageComposeViewControllerDelegate {
+
+    
 
     
     
@@ -33,7 +35,6 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
     @IBOutlet var mainBackButton: UIButton!
     
     @IBAction func backButton(_ sender: UIButton) {
-        print("\(sender.title(for: .normal))")
         if paymentView.isHidden == false {
             paymentView.isHidden = true
             routesView.isHidden = false
@@ -57,6 +58,9 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
     var lviv: City?
     var zhytomyr: City?
     var ivanoFrankivsk: City?
+    var tram: TransportModel?
+    var trolleybus : TransportModel?
+    var autobus: TransportModel?
     let defaults = UserDefaults.standard
     var transport: TransportModel?
     var route: String!
@@ -73,16 +77,30 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
     let zhytomyrTrolleybus = TransportModel(transportType: "Тролейбус", routeNumbers: ["1A", "1Б", "2", "3", "4", "4А", "6", "7", "7А", "8", "9", "10", "15А", "ДЕПО"], ticketPrice: 4, transportRoutes: ["Вокзал - Центр - Смолянка - Вокзал (кільцевий)", "Вокзал - Смолянка - Центр - Вокзал (кільцевий)", "Богунія - Вокзал - Смолянка", "Богунія - Смолянка - Вокзал", "Крошня - Залізничний вокзал", "Крошня - майдан Станишівський", "Крошня - ЗОК", "Маликова - Залізничний вокзал", "Маликова - Промислова", "Маликова - майдан Станишівський", "Гідропарк - Космонавтів", "Богунія - Промислова", "Гідропарк - Селецька", "ДЕПО"], routeTextCodes: ["SEB1A", "SEB1B", "SEB2", "SEB3", "SEB4", "SEB4A", "SEB6", "SEB7", "SEB7A", "SEB8", "SEB9", "SEB10", "SEB15A", "SEB0"])
     let zhytomyrAutobus = TransportModel(transportType: "Автобус", routeNumbers: ["3", "4", "ДЕПО"], ticketPrice: 6, transportRoutes: ["Богунія - Корбутівка", "Крошня(ТЦ \"Ринг\" - Комбінат силікатних виробів)", "ДЕПО"], routeTextCodes: ["SEA3", "SEA4", "SEA0"])
     let ivanoFrankivskTram = TransportModel(transportType: "Трамвай", routeNumbers: ["1", "2", "3", "4", "5", "6"], ticketPrice: 4, transportRoutes: ["Залізничний вокзал - Електромережа", "Барське шосе - Вишенька", "Вишенька - Електромережа", "Барське шосе - Залізничний вокзал", "Барське шосе - Електромережа", "Залізничний вокзал - Вишенька"], routeTextCodes: ["SAC1", "SAC2", "SAC3", "SAC4", "SAC5", "SAC6"])
+    
     let ivanoFrankivskTrolleybus = TransportModel(transportType: "Тролейбус", routeNumbers: ["2", "3", "4", "5", "6", "7", "10"], ticketPrice: 5, transportRoutes: ["Вокзал - вул. Юності \"Пресмаш\"", "АТ \"Родон\" - Обласна лікарня", "вул. Дністровська - фірма \"Барва\"", "вул. Дністровська - Тролейбусне депо", "Радіозавод - Європейська площа", "м-н \"Каскад\" - Європейська площа", "вул. Симоненка - вул. Юності \"Пресмаш\""], routeTextCodes: ["SHB2", "SHB3", "SHB4", "SHB5", "SHB6", "SHB7", "SHB10"])
     let ivanoFrankivskAutobus = TransportModel(transportType: "Автобус", routeNumbers: ["27", "40", "41", "45", "47", "49", "55"], ticketPrice: 5, transportRoutes: ["м-н \"Каскад\" - вул. І Пулюя", "м-н \"Каскад\"  - АС-3", "Онкодиспансер - м-н \"Каскад\"", "с. Підлужжя - вул. Набережна", "Вокзал - Братківці", "АС-4 - вул Набережна", "Хоткевича - с.Черніїв", "Хоткевича - с. Хриплин", "с. Крихівці - АС-2", "Вокзал - с. Черніїв"], routeTextCodes: ["SHA27", "SHA40", "SHA41", "SHA45", "SHA47", "SHA49", "SHA55"])
-    
+    // Flayout for Transport Type Tile centering
+   let columnLayout = FlowLayout(
+        itemSize: CGSize(width: 140, height: 140),
+        minimumInteritemSpacing: 10,
+        minimumLineSpacing: 10,
+        sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        vinnitsa = City(name: "Вінниця", tram: vinnitsaTram, trolleybus: vinnitsaTrolleybus, autobus: vinnitsaAutobus)
-        lviv = City(name: "Львів", tram: lvivTram, trolleybus: lvivTrolleybus, autobus: nil)
-        zhytomyr = City(name: "Житомир", tram: zhytomyrTram, trolleybus: zhytomyrTrolleybus, autobus: zhytomyrAutobus)
-        ivanoFrankivsk = City(name: "Івано-Франківськ", tram: nil, trolleybus: ivanoFrankivskTrolleybus, autobus: ivanoFrankivskAutobus)
+        transportTypeView.transportTypeCollectionView.collectionViewLayout = columnLayout
+        transportTypeView.transportTypeCollectionView.contentInsetAdjustmentBehavior = .always
+        transportTypeView.transportTypeCollectionView.register(TransportTypeCollectionViewCell.self, forCellWithReuseIdentifier: "TransportTypeCell")
+        let ivanoFrankivskCityTransport: [TransportModel] = [ivanoFrankivskTrolleybus, ivanoFrankivskAutobus]
+        let zhitomirCityTransport: [TransportModel] = [zhytomyrTram, zhytomyrTrolleybus, zhytomyrAutobus]
+        let vinnitsaCityTransport: [TransportModel] = [vinnitsaTram, vinnitsaTrolleybus, vinnitsaAutobus]
+        let lvivCityTransport:[TransportModel] = [lvivTram, lvivTrolleybus, lvivAutobus]
+        vinnitsa = City(name: "Вінниця", cityTransport: vinnitsaCityTransport)
+        lviv = City(name: "Львів", cityTransport: lvivCityTransport)
+        zhytomyr = City(name: "Житомир", cityTransport: zhitomirCityTransport )
+        ivanoFrankivsk = City(name: "Івано-Франківськ", cityTransport: ivanoFrankivskCityTransport)
         cities = Array(arrayLiteral: vinnitsa!, lviv!, zhytomyr!, ivanoFrankivsk!)
         paymentView.isHidden = true
         routesView.isHidden = true
@@ -138,10 +156,28 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
         }
         }
     }
+    // starting setup CollectionView for Transport Type Tile
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print((city?.cityTransport.count)!)
+        return (city?.cityTransport.count)!
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TransportTypeCell", for: indexPath) as! TransportTypeCollectionViewCell
+        cell.transportTypeLabel.text =
+        "Tram"
+        cell.transportTypeImage.image = UIImage(named: "tram")
+        cell.layer.bounds.size.height = 120
+        return cell
+    }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        transportTypeView.transportTypeCollectionView.collectionViewLayout.invalidateLayout()
+        super.viewWillTransition(to: size, with: coordinator)
+    }
+    // ending setup CollectionView for Transport Type Tile
     func updateRouteView(sender: UIButton ){
         switch  sender.titleLabel?.text {
         case "Тб":
-            transport = city?.trolleybus
+            //transport = city?.trolleybus
             mainBackButton.isHidden = false
             transportTypeView.blur(2.0)
             cityDropDownView.blur(2.0)
@@ -149,7 +185,7 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
             routesView.isHidden = false
             animateRouteViewApper(sender: sender)
         case "Тм":
-            transport = city?.tram
+            //transport = city?.tram
             mainBackButton.isHidden = false
             cityDropDownView.blur(2.0)
             transportTypeView.blur(2.0)
@@ -157,7 +193,7 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
             routesView.isHidden = false
             animateRouteViewApper(sender: sender)
         case "Аб":
-            transport = city?.autobus
+            //transport = city?.autobus
             mainBackButton.isHidden = false
             transportTypeView.blur(2.0)
             cityDropDownView.blur(2.0)
@@ -333,11 +369,12 @@ class MainViewController: UIViewController, TransportType, Buttons, PaymentViewP
     }
     func loadUserDefaults(){
         informationView.informationCheckMark.isSelected = defaults.object(forKey: "InformationButtoncheckMark") as? Bool ?? false
-        if let decodedData = UserDefaults.standard.object(forKey: "CityChoosen") as? Data {
+        if let decodedData = UserDefaults.standard.object(forKey: "CityChoosen") as? Data, let city = try? JSONDecoder().decode(City.self, from: decodedData){
                     print(decodedData)
                     print(":)")
-                    let jsonDecoder = JSONDecoder()
-            self.city = try? jsonDecoder.decode(City.self, from: decodedData)
+            self.city = city
+            
+            print(city)
                 } else {city = vinnitsa}
         
             let index = cities.firstIndex(of: city!)

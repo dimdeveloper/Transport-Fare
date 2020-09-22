@@ -15,6 +15,7 @@ protocol TransportType: class {
 }
 class TransportTypeView: UIView {
     weak var delegate: TransportType?
+    @IBOutlet weak var transportTypeCollectionView: UICollectionView!
     @IBOutlet var dovidka: UIButton!
 
     @IBOutlet var transportTypeButtons: [UIButton]!

@@ -22,8 +22,10 @@
 		525704AF24C9571F007A4641 /* BlurredEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525704AE24C9571F007A4641 /* BlurredEffect.swift */; };
 		525704B124C964EF007A4641 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 525704B024C964EF007A4641 /* Main.storyboard */; };
 		525704D724C98C72007A4641 /* HelperComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525704D624C98C72007A4641 /* HelperComponents.swift */; };
+		529621E72519E7B6004D9F93 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529621E62519E7B6004D9F93 /* FlowLayout.swift */; };
 		52BABFED24C31C19001DB1A7 /* ButtonsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BABFEC24C31C19001DB1A7 /* ButtonsModel.swift */; };
 		52BABFEF24C320ED001DB1A7 /* StackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BABFEE24C320ED001DB1A7 /* StackViewModel.swift */; };
+		52BE6D7825188966003EA19A /* TransportTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BE6D7725188966003EA19A /* TransportTypeCollectionViewCell.swift */; };
 		52E5E8B524EE901900A3F612 /* CityDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E5E8B424EE901900A3F612 /* CityDropDownView.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,8 +47,10 @@
 		525704AE24C9571F007A4641 /* BlurredEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredEffect.swift; sourceTree = "<group>"; };
 		525704B024C964EF007A4641 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../../../.Trash/Main.storyboard; sourceTree = "<group>"; };
 		525704D624C98C72007A4641 /* HelperComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperComponents.swift; sourceTree = "<group>"; };
+		529621E62519E7B6004D9F93 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		52BABFEC24C31C19001DB1A7 /* ButtonsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsModel.swift; sourceTree = "<group>"; };
 		52BABFEE24C320ED001DB1A7 /* StackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewModel.swift; sourceTree = "<group>"; };
+		52BE6D7725188966003EA19A /* TransportTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		52E5E8B424EE901900A3F612 /* CityDropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDropDownView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +84,7 @@
 		52275D3224B5C11700B76A67 /* TransportFare */ = {
 			isa = PBXGroup;
 			children = (
+				529621E52519E6AF004D9F93 /* UICollectionView */,
 				52275D3324B5C11700B76A67 /* AppDelegate.swift */,
 				52275D3524B5C11700B76A67 /* SceneDelegate.swift */,
 				52275D3C24B5C11800B76A67 /* Assets.xcassets */,
@@ -99,8 +104,17 @@
 				522AAAEF24DE9611004981D9 /* InformationView.swift */,
 				522AAAF324E514D0004981D9 /* SaveData.swift */,
 				52E5E8B424EE901900A3F612 /* CityDropDownView.swift */,
+				52BE6D7725188966003EA19A /* TransportTypeCollectionViewCell.swift */,
 			);
 			path = TransportFare;
+			sourceTree = "<group>";
+		};
+		529621E52519E6AF004D9F93 /* UICollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				529621E62519E7B6004D9F93 /* FlowLayout.swift */,
+			);
+			path = UICollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				525704D724C98C72007A4641 /* HelperComponents.swift in Sources */,
+				529621E72519E7B6004D9F93 /* FlowLayout.swift in Sources */,
 				52275D5224B70F8500B76A67 /* MainViewController.swift in Sources */,
 				522AAAF424E514D0004981D9 /* SaveData.swift in Sources */,
 				525704AF24C9571F007A4641 /* BlurredEffect.swift in Sources */,
@@ -183,6 +198,7 @@
 				52275D4C24B6F63700B76A67 /* PaymentView.swift in Sources */,
 				52E5E8B524EE901900A3F612 /* CityDropDownView.swift in Sources */,
 				52BABFEF24C320ED001DB1A7 /* StackViewModel.swift in Sources */,
+				52BE6D7825188966003EA19A /* TransportTypeCollectionViewCell.swift in Sources */,
 				52275D5024B70E4E00B76A67 /* TransportModel.swift in Sources */,
 				52275D3424B5C11700B76A67 /* AppDelegate.swift in Sources */,
 				52BABFED24C31C19001DB1A7 /* ButtonsModel.swift in Sources */,
