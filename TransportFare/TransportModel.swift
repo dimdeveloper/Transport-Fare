@@ -16,6 +16,7 @@ struct City: Codable, Equatable {
     let cityTransport: [TransportModel]
 }
 struct TransportModel: Codable {
+    let transportName: String
     let transportType: String
     let routeNumbers: [String]
     let ticketPrice: Int
