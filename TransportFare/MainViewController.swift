@@ -82,7 +82,7 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
     let ivanoFrankivskAutobus = TransportModel(transportName: "autobus", transportType: "Автобус", routeNumbers: ["27", "40", "41", "45", "47", "49", "55"], ticketPrice: 5, transportRoutes: ["м-н \"Каскад\" - вул. І Пулюя", "м-н \"Каскад\"  - АС-3", "Онкодиспансер - м-н \"Каскад\"", "с. Підлужжя - вул. Набережна", "Вокзал - Братківці", "АС-4 - вул Набережна", "Хоткевича - с.Черніїв", "Хоткевича - с. Хриплин", "с. Крихівці - АС-2", "Вокзал - с. Черніїв"], routeTextCodes: ["SHA27", "SHA40", "SHA41", "SHA45", "SHA47", "SHA49", "SHA55"])
     // Flayout for Transport Type Tile centering
    let columnLayout = FlowLayout(
-        itemSize: CGSize(width: 84, height: 84),
+        itemSize: CGSize(width: 84, height: 107),
         minimumInteritemSpacing: 10,
         minimumLineSpacing: 10,
         sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -116,7 +116,8 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
         updateInformationView()
         transportTypeView.transportTypeCollectionView.collectionViewLayout = columnLayout
         transportTypeView.transportTypeCollectionView.contentInsetAdjustmentBehavior = .always
-        transportTypeView.transportTypeCollectionView.register(TransportTypeCollectionViewCell.self, forCellWithReuseIdentifier: "TransportTypeCell")
+        transportTypeView.transportTypeCollectionView.heightAnchor.constraint(equalToConstant: transportTypeView.transportTypeCollectionView.collectionViewLayout.collectionViewContentSize.height).isActive = true
+//        transportTypeView.transportTypeCollectionView.register(TransportTypeCollectionViewCell.self, forCellWithReuseIdentifier: "TransportTypeCell")
         routesView.layer.cornerRadius = 10
         paymentView.layer.cornerRadius = 10
         informationView.layer.cornerRadius = 10
@@ -174,6 +175,11 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
         transportTypeView.transportTypeCollectionView.collectionViewLayout.invalidateLayout()
         super.viewWillTransition(to: size, with: coordinator)
     }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+           let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TransportTypeCollectionViewHeader", for: indexPath)
+           columnLayout.headerReferenceSize = CGSize(width: 0, height: 50)
+           return headerView
+       }
     // ending setup CollectionView for Transport Type Tile
     func updateRouteView(sender: UIButton ){
         switch  sender.titleLabel?.text {
@@ -341,7 +347,10 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
         dropDownMenuOfcitysIsHidden = !dropDownMenuOfcitysIsHidden
         updateDropDownMenuOfCyties()
     }
-
+    func updateTransportTypeCollectionView(completion: () -> Void){
+        self.transportTypeView.transportTypeCollectionView.reloadData()
+        completion()
+    }
     @objc func cityDropDownButtonTapped(sender: UIButton) {
         for city in cities {
             //var city = cities[index]
@@ -351,9 +360,20 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
                 cities.insert(cityChoosen, at: 0)
                 //saving city choosing
                 self.city = cityChoosen
-                DispatchQueue.main.async {
-                    self.transportTypeView.transportTypeCollectionView.reloadData()
+                
+                transportTypeView.transportTypeCollectionView.reloadData()
+                        
+                UIView.animate(withDuration: 0.0) {
+                    
+                } completion: { _ in
+                    
+                    self.transportTypeView.transportTypeCollectionView.heightAnchor.constraint(equalToConstant: self.transportTypeView.transportTypeCollectionView.collectionViewLayout.collectionViewContentSize.height).isActive = true
                 }
+
+                
+                    
+                
+                
                 let jsonEncoder = JSONEncoder()
                 if let data = try? jsonEncoder.encode(cityChoosen) {
                     let userDefaults = UserDefaults.standard
