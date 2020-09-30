@@ -171,7 +171,7 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
         cell.transportTypeLabel.text =
         "Tram"
         cell.transportTypeImage.image = UIImage(named: "tram")
-        cell.layer.bounds.size.height = 120
+        //cell.layer.bounds.size.height = 120
         return cell
     }
 
