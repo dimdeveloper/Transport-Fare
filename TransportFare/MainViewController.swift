@@ -114,9 +114,7 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
         dropDownMenuOfcitysIsHidden = true
         updateDropDownMenuOfCyties()
         updateInformationView()
-        transportTypeView.transportTypeCollectionView.collectionViewLayout = columnLayout
-        transportTypeView.transportTypeCollectionView.contentInsetAdjustmentBehavior = .always
-        transportTypeView.transportTypeCollectionView.heightAnchor.constraint(equalToConstant: transportTypeView.transportTypeCollectionView.collectionViewLayout.collectionViewContentSize.height).isActive = true
+        updateTransportTypeCollectionView()
 //        transportTypeView.transportTypeCollectionView.register(TransportTypeCollectionViewCell.self, forCellWithReuseIdentifier: "TransportTypeCell")
         routesView.layer.cornerRadius = 10
         paymentView.layer.cornerRadius = 10
@@ -158,6 +156,11 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
         }
         }
     }
+    func updateTransportTypeCollectionView(){
+        transportTypeView.transportTypeCollectionView.collectionViewLayout = columnLayout
+       transportTypeView.transportTypeCollectionView.contentInsetAdjustmentBehavior = .always
+        self.transportTypeView.transportTypeCollectionViewHeight.constant = self.transportTypeView.transportTypeCollectionView.collectionViewLayout.collectionViewContentSize.height
+    }
     // starting setup CollectionView for Transport Type Tile
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print((city?.cityTransport.count)!)
@@ -171,10 +174,7 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
         cell.layer.bounds.size.height = 120
         return cell
     }
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        transportTypeView.transportTypeCollectionView.collectionViewLayout.invalidateLayout()
-        super.viewWillTransition(to: size, with: coordinator)
-    }
+
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TransportTypeCollectionViewHeader", for: indexPath)
            columnLayout.headerReferenceSize = CGSize(width: 0, height: 50)
@@ -361,14 +361,23 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
                 //saving city choosing
                 self.city = cityChoosen
                 
-                transportTypeView.transportTypeCollectionView.reloadData()
-                        
+                
+                
+                    
                 UIView.animate(withDuration: 0.0) {
-                    
+                    self.transportTypeView.transportTypeCollectionView.reloadData()
                 } completion: { _ in
-                    
-                    self.transportTypeView.transportTypeCollectionView.heightAnchor.constraint(equalToConstant: self.transportTypeView.transportTypeCollectionView.collectionViewLayout.collectionViewContentSize.height).isActive = true
+                    self.updateTransportTypeCollectionView()
                 }
+
+                
+                    
+                
+                
+                
+               
+                
+                
 
                 
                     

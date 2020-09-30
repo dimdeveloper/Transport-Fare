@@ -17,7 +17,7 @@ class TransportTypeView: UIView {
     weak var delegate: TransportType?
     @IBOutlet weak var transportTypeCollectionView: UICollectionView!
     @IBOutlet var dovidka: UIButton!
-
+    @IBOutlet weak var transportTypeCollectionViewHeight:NSLayoutConstraint!
     @IBOutlet var transportTypeButtons: [UIButton]!
     @IBOutlet weak var checkBill: UIButton!
 
