@@ -9,6 +9,10 @@
 import UIKit
 import MessageUI
 class MainViewController: UIViewController, TransportType, Buttons, UICollectionViewDataSource, UICollectionViewDelegate, PaymentViewProtocol, CityDropDown, MFMessageComposeViewControllerDelegate {
+    func delegateWithTransportType(sender: UIButton) {
+        print("Hello")
+    }
+    
 
     
 
@@ -168,8 +172,8 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TransportTypeCell", for: indexPath) as! TransportTypeCollectionViewCell
-        cell.transportTypeLabel.text =
-        "Tram"
+        cell.transportTypeLabel.text = city?.cityTransport[indexPath.row].transportType
+        
         cell.transportTypeImage.image = UIImage(named: "tram")
         //cell.layer.bounds.size.height = 120
         return cell
@@ -180,40 +184,59 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
            columnLayout.headerReferenceSize = CGSize(width: 0, height: 50)
            return headerView
        }
+
+        
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! TransportTypeCollectionViewCell
+        let nameOfSelectedTransport = cell.transportTypeLabel.text
+        updateRouteView(transportType: nameOfSelectedTransport!)
+    }
     // ending setup CollectionView for Transport Type Tile
-    func updateRouteView(sender: UIButton ){
-        switch  sender.titleLabel?.text {
-        case "Тб":
-            //transport = city?.trolleybus
-            mainBackButton.isHidden = false
-            transportTypeView.blur(2.0)
-            cityDropDownView.blur(2.0)
-            updateRouteStackView(transport: transport!, widthOfVerticalStack: widthOfVerticalStack)
-            routesView.isHidden = false
-            animateRouteViewApper(sender: sender)
-        case "Тм":
-            //transport = city?.tram
-            mainBackButton.isHidden = false
-            cityDropDownView.blur(2.0)
-            transportTypeView.blur(2.0)
-            updateRouteStackView(transport: transport!, widthOfVerticalStack: widthOfVerticalStack)
-            routesView.isHidden = false
-            animateRouteViewApper(sender: sender)
-        case "Аб":
-            //transport = city?.autobus
-            mainBackButton.isHidden = false
-            transportTypeView.blur(2.0)
-            cityDropDownView.blur(2.0)
-            updateRouteStackView(transport: transport!, widthOfVerticalStack: widthOfVerticalStack)
-            routesView.isHidden = false
-            animateRouteViewApper(sender: sender)
-        default:
-            break
+    func updateRouteView(transportType: String) {
+        for transportModel in city!.cityTransport {
+            if transportType == transportModel.transportType {
+                transport = transportModel
+                mainBackButton.isHidden = false
+                transportTypeView.blur(2.0)
+                cityDropDownView.blur(2.0)
+                updateRouteStackView(transport: transport!, widthOfVerticalStack: widthOfVerticalStack)
+                routesView.isHidden = false
+//            switch  transportType {
+//            case "Тролейбус":
+//                //transport = city?.trolleybus
+//                mainBackButton.isHidden = false
+//                transportTypeView.blur(2.0)
+//                cityDropDownView.blur(2.0)
+//                updateRouteStackView(transport: transport!, widthOfVerticalStack: widthOfVerticalStack)
+//                routesView.isHidden = false
+//                //animateRouteViewApper(sender: sender)
+//            case "Трамвай":
+//                //transport = city?.tram
+//                mainBackButton.isHidden = false
+//                cityDropDownView.blur(2.0)
+//                transportTypeView.blur(2.0)
+//                updateRouteStackView(transport: transport!, widthOfVerticalStack: widthOfVerticalStack)
+//                routesView.isHidden = false
+//                //animateRouteViewApper(sender: sender)
+//            case "Автобус":
+//                //transport = city?.autobus
+//                mainBackButton.isHidden = false
+//                transportTypeView.blur(2.0)
+//                cityDropDownView.blur(2.0)
+//                updateRouteStackView(transport: transport!, widthOfVerticalStack: widthOfVerticalStack)
+//                routesView.isHidden = false
+//                //animateRouteViewApper(sender: sender)
+//            default:
+//                break
+//            }
+        }
         }
     }
-    func delegateWithTransportType(sender: UIButton) {
-        updateRouteView(sender: sender)
-    }
+    
+//    func delegateWithTransportType(sender: UIButton) {
+//        updateRouteView(sender: sender)
+//    }
     func animateRouteViewApper(sender: UIButton){
         UIView.animate(withDuration: 0.0, animations: {
         }, completion: { _ in
