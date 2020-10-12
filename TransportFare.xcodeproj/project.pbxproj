@@ -23,6 +23,7 @@
 		525704B124C964EF007A4641 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 525704B024C964EF007A4641 /* Main.storyboard */; };
 		525704D724C98C72007A4641 /* HelperComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525704D624C98C72007A4641 /* HelperComponents.swift */; };
 		529621E72519E7B6004D9F93 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529621E62519E7B6004D9F93 /* FlowLayout.swift */; };
+		52AE41852525DD4100ACD1A3 /* RoutesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AE41842525DD4100ACD1A3 /* RoutesCollectionViewCell.swift */; };
 		52BABFED24C31C19001DB1A7 /* ButtonsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BABFEC24C31C19001DB1A7 /* ButtonsModel.swift */; };
 		52BABFEF24C320ED001DB1A7 /* StackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BABFEE24C320ED001DB1A7 /* StackViewModel.swift */; };
 		52BE6D7825188966003EA19A /* TransportTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BE6D7725188966003EA19A /* TransportTypeCollectionViewCell.swift */; };
@@ -48,6 +49,7 @@
 		525704B024C964EF007A4641 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../../../.Trash/Main.storyboard; sourceTree = "<group>"; };
 		525704D624C98C72007A4641 /* HelperComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperComponents.swift; sourceTree = "<group>"; };
 		529621E62519E7B6004D9F93 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
+		52AE41842525DD4100ACD1A3 /* RoutesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesCollectionViewCell.swift; sourceTree = "<group>"; };
 		52BABFEC24C31C19001DB1A7 /* ButtonsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsModel.swift; sourceTree = "<group>"; };
 		52BABFEE24C320ED001DB1A7 /* StackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewModel.swift; sourceTree = "<group>"; };
 		52BE6D7725188966003EA19A /* TransportTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTypeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				522AAAF324E514D0004981D9 /* SaveData.swift */,
 				52E5E8B424EE901900A3F612 /* CityDropDownView.swift */,
 				52BE6D7725188966003EA19A /* TransportTypeCollectionViewCell.swift */,
+				52AE41842525DD4100ACD1A3 /* RoutesCollectionViewCell.swift */,
 			);
 			path = TransportFare;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52AE41852525DD4100ACD1A3 /* RoutesCollectionViewCell.swift in Sources */,
 				525704D724C98C72007A4641 /* HelperComponents.swift in Sources */,
 				529621E72519E7B6004D9F93 /* FlowLayout.swift in Sources */,
 				52275D5224B70F8500B76A67 /* MainViewController.swift in Sources */,

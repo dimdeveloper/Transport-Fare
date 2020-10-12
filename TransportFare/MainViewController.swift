@@ -8,7 +8,7 @@
 
 import UIKit
 import MessageUI
-class MainViewController: UIViewController, TransportType, Buttons, UICollectionViewDataSource, UICollectionViewDelegate, PaymentViewProtocol, CityDropDown, MFMessageComposeViewControllerDelegate {
+class MainViewController: UIViewController, TransportType, Buttons, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PaymentViewProtocol, CityDropDown, MFMessageComposeViewControllerDelegate {
     func delegateWithTransportType(sender: UIButton) {
         print("Hello")
     }
@@ -31,6 +31,8 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
     @IBOutlet weak var transportTypeView: TransportTypeView!
     @IBOutlet weak var routesView: RoutesView!
     
+    @IBOutlet var routesCollectionView: UICollectionView!
+
     @IBOutlet weak var informationView: InformationView!
     
     @IBOutlet var cityDropDownView: CityDropDownView!
@@ -38,19 +40,23 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet var mainBackButton: UIButton!
     
+    @IBOutlet var routesCollectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var routesCollectionViewWidth: NSLayoutConstraint!
     @IBAction func backButton(_ sender: UIButton) {
         if paymentView.isHidden == false {
             paymentView.isHidden = true
             routesView.isHidden = false
+            routesCollectionView.isHidden = false
         } else if paymentView.isHidden == true {
+            routesCollectionView.isHidden = true
             routesView.isHidden = true
             backButton.isHidden = true
             mainBackButton.isHidden = true
             informationView.isHidden = true
             cityDropDownView.unblur()
             transportTypeView.unblur()
-            clearButtonsAndStack()
-            transport = nil
+//            clearButtonsAndStack()
+         transport = nil
             
         }
        if dropDownMenuOfcitysIsHidden == false {
@@ -85,13 +91,8 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
     let ivanoFrankivskTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["2", "3", "4", "5", "6", "7", "10"], ticketPrice: 5, transportRoutes: ["Вокзал - вул. Юності \"Пресмаш\"", "АТ \"Родон\" - Обласна лікарня", "вул. Дністровська - фірма \"Барва\"", "вул. Дністровська - Тролейбусне депо", "Радіозавод - Європейська площа", "м-н \"Каскад\" - Європейська площа", "вул. Симоненка - вул. Юності \"Пресмаш\""], routeTextCodes: ["SHB2", "SHB3", "SHB4", "SHB5", "SHB6", "SHB7", "SHB10"])
     let ivanoFrankivskAutobus = TransportModel(transportName: "autobus", transportType: "Автобус", routeNumbers: ["27", "40", "41", "45", "47", "49", "55"], ticketPrice: 5, transportRoutes: ["м-н \"Каскад\" - вул. І Пулюя", "м-н \"Каскад\"  - АС-3", "Онкодиспансер - м-н \"Каскад\"", "с. Підлужжя - вул. Набережна", "Вокзал - Братківці", "АС-4 - вул Набережна", "Хоткевича - с.Черніїв", "Хоткевича - с. Хриплин", "с. Крихівці - АС-2", "Вокзал - с. Черніїв"], routeTextCodes: ["SHA27", "SHA40", "SHA41", "SHA45", "SHA47", "SHA49", "SHA55"])
     // Flayout for Transport Type Tile centering
-   let columnLayout = FlowLayout(
-        itemSize: CGSize(width: 84, height: 107),
-        minimumInteritemSpacing: 10,
-        minimumLineSpacing: 10,
-        sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    )
-    
+   let transportTypeColumnLayout = FlowLayout()
+    let routesViewColumnLayout = FlowLayout()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -106,6 +107,7 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
         cities = Array(arrayLiteral: vinnitsa!, lviv!, zhytomyr!, ivanoFrankivsk!)
         paymentView.isHidden = true
         routesView.isHidden = true
+        routesCollectionView.isHidden = true
         informationView.scrollView.layer.cornerRadius = 10
         informationView.scrollView.layer.borderWidth = 1
         informationView.scrollView.layer.borderColor = UIColor.gray.cgColor
@@ -113,12 +115,20 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
         buttonsModel.delegate = self
         paymentView.delegate = self
         cityDropDownView.delegate = self
+        transportTypeView.transportTypeCollectionView.dataSource = self
+        transportTypeView.transportTypeCollectionView.delegate = self
+        routesCollectionView.delegate = self
+        routesCollectionView.dataSource = self
         loadUserDefaults()
         updateCityDropDown()
         dropDownMenuOfcitysIsHidden = true
         updateDropDownMenuOfCyties()
         updateInformationView()
-        updateTransportTypeCollectionView()
+        updateCollectionView(collectionView: transportTypeView.transportTypeCollectionView) {
+            updateCollectionViewLayout(currentCollectionView: transportTypeView.transportTypeCollectionView, layout: transportTypeColumnLayout, collectionViewHeightConstraint: transportTypeView.transportTypeCollectionViewHeight)
+            
+        }
+
 //        transportTypeView.transportTypeCollectionView.register(TransportTypeCollectionViewCell.self, forCellWithReuseIdentifier: "TransportTypeCell")
         routesView.layer.cornerRadius = 10
         paymentView.layer.cornerRadius = 10
@@ -160,29 +170,88 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
         }
         }
     }
-    func updateTransportTypeCollectionView(){
-        transportTypeView.transportTypeCollectionView.collectionViewLayout = columnLayout
-       transportTypeView.transportTypeCollectionView.contentInsetAdjustmentBehavior = .always
-        self.transportTypeView.transportTypeCollectionViewHeight.constant = self.transportTypeView.transportTypeCollectionView.collectionViewLayout.collectionViewContentSize.height
+    func updateCollectionViewLayout(currentCollectionView: UICollectionView, layout: UICollectionViewLayout, collectionViewHeightConstraint: NSLayoutConstraint){
+        
+           currentCollectionView.collectionViewLayout = layout
+        
+        
+       //collectionView.contentInsetAdjustmentBehavior = .always
+        collectionViewHeightConstraint.constant = currentCollectionView.collectionViewLayout.collectionViewContentSize.height
     }
+    
     // starting setup CollectionView for Transport Type Tile
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print((city?.cityTransport.count)!)
-        return (city?.cityTransport.count)!
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TransportTypeCell", for: indexPath) as! TransportTypeCollectionViewCell
-        cell.transportTypeLabel.text = city?.cityTransport[indexPath.row].transportType
-        
-        cell.transportTypeImage.image = UIImage(named: "tram")
-        //cell.layer.bounds.size.height = 120
-        return cell
-    }
 
+        
+        if collectionView == routesCollectionView {
+            
+            return transport?.routeNumbers.count ?? 0
+        } else {
+         
+        return (city?.cityTransport.count)!
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == transportTypeView.transportTypeCollectionView {
+        let transportTypeCell = transportTypeView.transportTypeCollectionView.dequeueReusableCell(withReuseIdentifier: "TransportTypeCell", for: indexPath) as! TransportTypeCollectionViewCell
+        
+        
+       transportTypeCell.transportTypeLabel.text = city?.cityTransport[indexPath.row].transportType
+        
+            transportTypeCell.transportTypeImage.image = UIImage(named: (city?.cityTransport[indexPath.row].transportName)!)
+        //cell.layer.bounds.size.height = 120
+            
+            return transportTypeCell
+        } else {
+        let routeCell = routesCollectionView.dequeueReusableCell(withReuseIdentifier: "RoutesCollectionViewCell", for: indexPath) as! RoutesCollectionViewCell
+            routeCell.layer.cornerRadius = 5
+            if transport?.routeNumbers[indexPath.row] == "ДЕПО" {
+                //routeCell.frame.size.width = 80
+
+             }
+            
+            routeCell.routesCollectionViewCellLabel.text = transport?.routeNumbers[indexPath.row]
+            
+           
+            
+        return routeCell
+    }
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView == transportTypeView.transportTypeCollectionView {
+            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        } else {
+            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        }
+
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == transportTypeView.transportTypeCollectionView {
+            return CGSize(width: 84, height: 107)
+        } else {
+            if transport?.routeNumbers[indexPath.row] == "ДЕПО" {
+                return CGSize(width: 80, height: 45)
+
+            } else {
+            return CGSize(width: 45, height: 45)
+            }
+        }
+            
+        
+    }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if collectionView == transportTypeView.transportTypeCollectionView {
            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TransportTypeCollectionViewHeader", for: indexPath)
-           columnLayout.headerReferenceSize = CGSize(width: 0, height: 50)
+            transportTypeColumnLayout.headerReferenceSize = CGSize(width: 0, height: 50)
            return headerView
+            
+        } else {
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "RoutesCollectionViewHeader", for: indexPath)
+            routesViewColumnLayout.headerReferenceSize = CGSize(width: 0, height: 50)
+            return headerView
+        }
        }
 
         
@@ -200,8 +269,10 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
                 mainBackButton.isHidden = false
                 transportTypeView.blur(2.0)
                 cityDropDownView.blur(2.0)
-                updateRouteStackView(transport: transport!, widthOfVerticalStack: widthOfVerticalStack)
-                routesView.isHidden = false
+                updateCollectionView(collectionView: routesCollectionView) {
+                    updateCollectionViewLayout(currentCollectionView: routesCollectionView, layout: routesViewColumnLayout, collectionViewHeightConstraint: routesCollectionViewHeightConstraint)
+                }
+                routesCollectionView.isHidden = false
 //            switch  transportType {
 //            case "Тролейбус":
 //                //transport = city?.trolleybus
@@ -370,8 +441,8 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
         dropDownMenuOfcitysIsHidden = !dropDownMenuOfcitysIsHidden
         updateDropDownMenuOfCyties()
     }
-    func updateTransportTypeCollectionView(completion: () -> Void){
-        self.transportTypeView.transportTypeCollectionView.reloadData()
+    func updateCollectionView(collectionView: UICollectionView, completion: () -> Void){
+        collectionView.reloadData()
         completion()
     }
     @objc func cityDropDownButtonTapped(sender: UIButton) {
@@ -385,13 +456,12 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
                 self.city = cityChoosen
                 
                 
-                
+                    updateCollectionView(collectionView: transportTypeView.transportTypeCollectionView) {
+                        updateCollectionViewLayout(currentCollectionView: transportTypeView.transportTypeCollectionView, layout: transportTypeColumnLayout, collectionViewHeightConstraint: transportTypeView.transportTypeCollectionViewHeight)
                     
-                UIView.animate(withDuration: 0.0) {
-                    self.transportTypeView.transportTypeCollectionView.reloadData()
-                } completion: { _ in
-                    self.updateTransportTypeCollectionView()
-                }
+                    }
+
+                
 
                 
                     
@@ -426,11 +496,11 @@ class MainViewController: UIViewController, TransportType, Buttons, UICollection
     func loadUserDefaults(){
         informationView.informationCheckMark.isSelected = defaults.object(forKey: "InformationButtoncheckMark") as? Bool ?? false
         if let decodedData = UserDefaults.standard.object(forKey: "CityChoosen") as? Data, let city = try? JSONDecoder().decode(City.self, from: decodedData){
-                    print(decodedData)
-                    print(":)")
+//                    print(decodedData)
+//                    print(":)")
             self.city = city
             
-            print(city)
+            
                 } else {city = vinnitsa}
         
             let index = cities.firstIndex(of: city!)

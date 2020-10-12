@@ -11,20 +11,23 @@ import UIKit
 
 class FlowLayout: UICollectionViewFlowLayout {
 
-    required init(itemSize: CGSize, minimumInteritemSpacing: CGFloat = 0, minimumLineSpacing: CGFloat = 0, sectionInset: UIEdgeInsets = .zero) {
-        super.init()
+//    required init(itemSize: CGSize?, minimumInteritemSpacing: CGFloat = 0, minimumLineSpacing: CGFloat = 0, sectionInset: UIEdgeInsets = .zero) {
+//        super.init()
+//        if let itemSize = itemSize {
+//            self.itemSize = itemSize
+//        }
+//        self.minimumInteritemSpacing = minimumInteritemSpacing
+//        self.minimumLineSpacing = minimumLineSpacing
+//        self.sectionInset = sectionInset
+//        sectionInsetReference = .fromSafeArea
+//    }
+//
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
 
-        self.itemSize = itemSize
-        self.minimumInteritemSpacing = minimumInteritemSpacing
-        self.minimumLineSpacing = minimumLineSpacing
-        self.sectionInset = sectionInset
-        sectionInsetReference = .fromSafeArea
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
+    
+    
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let layoutAttributes = super.layoutAttributesForElements(in: rect)!.map { $0.copy() as! UICollectionViewLayoutAttributes }
         guard scrollDirection == .vertical else { return layoutAttributes }
