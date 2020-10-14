@@ -20,6 +20,8 @@ struct TransportModel: Codable {
     let transportType: String
     let routeNumbers: [String]
     let ticketPrice: Int
+    let nightTimeTicketPrice: Int
+    let reducedPrice: Int?
     let transportRoutes: [String]
     let routeTextCodes: [String]
     var routeInfo: [String : String] {
