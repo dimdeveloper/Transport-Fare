@@ -20,10 +20,11 @@ struct TransportModel: Codable {
     let transportType: String
     let routeNumbers: [String]
     let ticketPrice: Int
-    let nightTimeTicketPrice: Int
+    let nightTimeTicketPrice: Int?
     let reducedPrice: Int?
     let transportRoutes: [String]
     let routeTextCodes: [String]
+    let reducedPriceRouteTextCodes: [String]?
     var routeInfo: [String : String] {
         var computedDictionary: [String : String] = [:]
         for (index, element) in routeNumbers.enumerated() { computedDictionary[element] = transportRoutes[index] }
@@ -33,5 +34,12 @@ struct TransportModel: Codable {
         for (index, element) in routeNumbers.enumerated() {
             computedDictionary[element] = routeTextCodes[index] }
         return computedDictionary}
+    var reducedPriceFareCode: [String : String] {
+        var computedDictionary: [String: String] = [:]
+        for (index, element) in routeNumbers.enumerated() {
+            computedDictionary[element] = reducedPriceRouteTextCodes?[index]
+        }
+        return computedDictionary
+    }
     
 }

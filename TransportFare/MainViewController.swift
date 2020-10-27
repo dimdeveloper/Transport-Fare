@@ -13,12 +13,6 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         print("Hello")
     }
     
-
-    
-
-    
-    
-
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         controller.dismiss(animated: true, completion: nil)
     }
@@ -33,7 +27,6 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     @IBOutlet weak var routesView: RoutesView!
     
     @IBOutlet var routesCollectionView: UICollectionView!
-
     @IBOutlet weak var informationView: InformationView!
     
     @IBOutlet var cityDropDownView: CityDropDownView!
@@ -78,31 +71,27 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     var city: City?
     var cities: [City] = []
     var citiesDropDownMenuButtons: [UIButton] = []
-    let vinnitsaTram = TransportModel(transportName: "tram", transportType: "Трамвай", routeNumbers: ["1", "2", "3", "4", "5", "6"], ticketPrice: 4, nightTimeTicketPrice: 4, reducedPrice: nil, transportRoutes: ["Залізничний вокзал - Електромережа", "Барське шосе - Вишенька", "Вишенька - Електромережа", "Барське шосе - Залізничний вокзал", "Барське шосе - Електромережа", "Залізничний вокзал - Вишенька"], routeTextCodes: ["SAC1", "SAC2", "SAC3", "SAC4", "SAC5", "SAC6"])
-    let vinnitsaTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["1", "2", "3", "4", "5", "6", "6A", "7", "8", "9", "10", "11", "12", "13", "14", "15"], ticketPrice: 4, nightTimeTicketPrice: 4, reducedPrice: nil, transportRoutes: ["Лугова - ВПЗ", "Меморіал Визволення - Чехова", "Вишенька - ВПЗ", "Вишенька - Лугова", "Залізничний вокзал - Вишенька", "Меморіал Визволення - Залізничний вокзал", "ВПЗ - Залізничний вокзал", "Залізничний вокзал - Лугова", "Вишенька - Меморіал Визволення", "Меморіал Визволення - Князів Коріатовичів", "Вишенька - Чехова", "Залізничний вокзал - Князів Коріатовичів", "Аграрний університет - Чехова", "Меморіал Визволення - Аграрний університет", "Залізничний вокзал - Аграрний університет", "Вишенька - Муніципальний ринок"], routeTextCodes: ["SAB1", "SAB2", "SAB3", "SAB4", "SAB5", "SAB6", "SAB6A", "SAB7", "SAB8", "SAB9", "SAB10", "SAB11", "SAB12", "SAB13", "SAB14", "SAB15"])
-    let vinnitsaAutobus = TransportModel(transportName: "autobus", transportType: "Автобус", routeNumbers: ["1", "2", "5", "6", "7", "8", "11", "14", "16", "17", "19", "20", "21", "22", "24", "27", "30"], ticketPrice: 5, nightTimeTicketPrice: 5, reducedPrice: nil, transportRoutes: ["Залізничний вокзал - Педучилище", "Вул. Сергія Зулінського - Площа Шкільна", "П'ятничани - Вул. Комарова", "Олієжиркомбінат - Площа Перемоги", "Вул. Якова Шепеля - Пирогово", "Залізничний вокзал - Вул. Бучми (ліс)", "Вул. Ботанічна - Сабарів", "Залізничний вокзал - Будинок відпочинку", "Меморіал Визволення - Барське шосе" + "\n" + " - Аграрний університет", "Залізничний вокзал - Тяжилів \n (Вінниччина-Авто)", "Вишенька - Немирівське шосе", "Меморіал Визволення - Хутір Шевченка", "Барське шосе - Педучилище", "Залізничний вокзал - Мікрорайон \n 'Академічний'", "Вишенька - Вул. Бучми (ліс)", "Залізничний вокзал - Тиврівське шосе", "смт. Десна - Будинок відпочинку"], routeTextCodes: ["SAA1", "SAA2", "SAA5", "SAA6", "SAA7", "SAA8", "SAA11", "SAA14", "SAA16", "SAA17", "SAA19", "SAA20", "SAA21", "SAA22", "SAA24", "SAA27", "SAA30"])
-    let lvivTram = TransportModel(transportName: "tram", transportType: "Трамвай", routeNumbers: ["1", "2", "3", "?", "?", "6", "7", "8", "9"], ticketPrice: 6, nightTimeTicketPrice: 6, reducedPrice: 3, transportRoutes: ["Залізничний вокзал – Центр", "вул. Коновальця – вул. Пасічна", "Аквапарк – пл. Соборна", "?", "?", "Залізничний вокзал – вул. Миколайчука", "вул. Татарбунарська – Погулянка", "пл. Соборна – вул. Вернадського", "Залізничний вокзал – Центр"], routeTextCodes: ["SN1", "SN2", "SN3", "?", "?", "SN6", "SN7", "SN8", "SN9"])
-    let lvivTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["22", "23", "24", "25", "27", "29", "30", "31", "32", "33"], ticketPrice: 6, nightTimeTicketPrice: 6, reducedPrice: 3, transportRoutes: ["Університет — вул. Академіка Підстригача", "Автовокзал — вул. Ряшівська", "вул. Шота Руставелі — Санта Барбара", "вул. Шота Руставелі — Автовокзал", "станція Скнилів — пл. Кропивницького", "Університет — Аеропорт", "вул. Ряшівська - Університет", "пл. Петрушевича — Сихівське кладовище", "Університет — вул. Суботівська", "пл. Івана Підкови — вул. Грінченка"], routeTextCodes: ["SN22", "SN23", "SN24", "SN25", "SN27", "SN29", "SN30", "SN31", "SN32", "SN33"])
+    let vinnitsaTram = TransportModel(transportName: "tram", transportType: "Трамвай", routeNumbers: ["1", "2", "3", "4", "5", "6"], ticketPrice: 4, nightTimeTicketPrice: nil, reducedPrice: nil, transportRoutes: ["Залізничний вокзал - Електромережа", "Барське шосе - Вишенька", "Вишенька - Електромережа", "Барське шосе - Залізничний вокзал", "Барське шосе - Електромережа", "Залізничний вокзал - Вишенька"], routeTextCodes: ["SAC1", "SAC2", "SAC3", "SAC4", "SAC5", "SAC6"], reducedPriceRouteTextCodes: nil)
+    let vinnitsaTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["1", "2", "3", "4", "5", "6", "6A", "7", "8", "9", "10", "11", "12", "13", "14", "15"], ticketPrice: 4, nightTimeTicketPrice: nil, reducedPrice: nil, transportRoutes: ["Лугова - ВПЗ", "Меморіал Визволення - Чехова", "Вишенька - ВПЗ", "Вишенька - Лугова", "Залізничний вокзал - Вишенька", "Меморіал Визволення - Залізничний вокзал", "ВПЗ - Залізничний вокзал", "Залізничний вокзал - Лугова", "Вишенька - Меморіал Визволення", "Меморіал Визволення - Князів Коріатовичів", "Вишенька - Чехова", "Залізничний вокзал - Князів Коріатовичів", "Аграрний університет - Чехова", "Меморіал Визволення - Аграрний університет", "Залізничний вокзал - Аграрний університет", "Вишенька - Муніципальний ринок"], routeTextCodes: ["SAB1", "SAB2", "SAB3", "SAB4", "SAB5", "SAB6", "SAB6A", "SAB7", "SAB8", "SAB9", "SAB10", "SAB11", "SAB12", "SAB13", "SAB14", "SAB15"], reducedPriceRouteTextCodes: nil)
+    let vinnitsaAutobus = TransportModel(transportName: "autobus", transportType: "Автобус", routeNumbers: ["1", "2", "5", "6", "7", "8", "11", "14", "16", "17", "19", "20", "21", "22", "24", "27", "30"], ticketPrice: 5, nightTimeTicketPrice: nil, reducedPrice: nil, transportRoutes: ["Залізничний вокзал - Педучилище", "Вул. Сергія Зулінського - Площа Шкільна", "П'ятничани - Вул. Комарова", "Олієжиркомбінат - Площа Перемоги", "Вул. Якова Шепеля - Пирогово", "Залізничний вокзал - Вул. Бучми (ліс)", "Вул. Ботанічна - Сабарів", "Залізничний вокзал - Будинок відпочинку", "Меморіал Визволення - Барське шосе" + "\n" + " - Аграрний університет", "Залізничний вокзал - Тяжилів \n (Вінниччина-Авто)", "Вишенька - Немирівське шосе", "Меморіал Визволення - Хутір Шевченка", "Барське шосе - Педучилище", "Залізничний вокзал - Мікрорайон \n 'Академічний'", "Вишенька - Вул. Бучми (ліс)", "Залізничний вокзал - Тиврівське шосе", "смт. Десна - Будинок відпочинку"], routeTextCodes: ["SAA1", "SAA2", "SAA5", "SAA6", "SAA7", "SAA8", "SAA11", "SAA14", "SAA16", "SAA17", "SAA19", "SAA20", "SAA21", "SAA22", "SAA24", "SAA27", "SAA30"], reducedPriceRouteTextCodes: nil)
+    let lvivTram = TransportModel(transportName: "tram", transportType: "Трамвай", routeNumbers: ["1", "2", "3", "4", "5", "6", "7", "8", "9"], ticketPrice: 6, nightTimeTicketPrice: nil, reducedPrice: 3, transportRoutes: ["Залізничний вокзал – Центр", "вул. Коновальця – вул. Пасічна", "Аквапарк – пл. Соборна", "Залізничний вокзал - вул. Вернадського", "вул. Торфяна - вул. Княгині Ольги", "Залізничний вокзал – вул. Миколайчука", "вул. Татарбунарська – Погулянка", "пл. Соборна – вул. Вернадського", "Залізничний вокзал – Центр"], routeTextCodes: ["SN1", "SN2", "SN3", "SN4", "SN5", "SN6", "SN7", "SN8", "SN9"], reducedPriceRouteTextCodes: ["PN1", "PN2", "PN3", "PN4", "PN5", "PN6", "PN7", "PN8", "PN9"])
+    let lvivTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["22", "23", "24", "25", "27", "29", "30", "31", "32", "33"], ticketPrice: 6, nightTimeTicketPrice: nil, reducedPrice: 3, transportRoutes: ["Університет — вул. Академіка Підстригача", "Автовокзал — вул. Ряшівська", "вул. Шота Руставелі — Санта Барбара", "вул. Шота Руставелі — Автовокзал", "станція Скнилів — пл. Кропивницького", "Університет — Аеропорт", "вул. Ряшівська - Університет", "пл. Петрушевича — Сихівське кладовище", "Університет — вул. Суботівська", "пл. Івана Підкови — вул. Грінченка"], routeTextCodes: ["SN22", "SN23", "SN24", "SN25", "SN27", "SN29", "SN30", "SN31", "SN32", "SN33"], reducedPriceRouteTextCodes: ["PN22", "PN23", "PN24", "PN25", "PN27", "PN29", "PN30", "PN31", "PN32", "PN33"])
 //    let lvivAutobus = TransportModel(transportName: "autobus", transportType: "Автобус", routeNumbers: ["1", "2", "5", "6", "7", "8", "11", "14", "16", "17", "19", "20", "21", "22", "24", "27", "30"], ticketPrice: 5, nightTimeTicketPrice: 5, transportRoutes: ["Залізничний вокзал - Педучилище", "Вул. Сергія Зулінського - Площа Шкільна", "П'ятничани - Вул. Комарова", "Олієжиркомбінат - Площа Перемоги", "Вул. Якова Шепеля - Пирогово", "Залізничний вокзал - Вул. Бучми (ліс)", "Вул. Ботанічна - Сабарів", "Залізничний вокзал - Будинок відпочинку", "Меморіал Визволення - Барське шосе" + "\n" + " - Аграрний університет", "Залізничний вокзал - Тяжилів \n (Вінниччина-Авто)", "Вишенька - Немирівське шосе", "Меморіал Визволення - Хутір Шевченка", "Барське шосе - Педучилище", "Залізничний вокзал - Мікрорайон \n 'Академічний'", "Вишенька - Вул. Бучми (ліс)", "Залізничний вокзал - Тиврівське шосе", "смт. Десна - Будинок відпочинку"], routeTextCodes: ["SAA1", "SAA2", "SAA5", "SAA6", "SAA7", "SAA8", "SAA11", "SAA14", "SAA16", "SAA17", "SAA19", "SAA20", "SAA21", "SAA22", "SAA24", "SAA27", "SAA30"])
-    let zhytomyrTram = TransportModel(transportName: "tram", transportType: "Трамвай", routeNumbers: ["91", "ДЕПО"], ticketPrice: 4, nightTimeTicketPrice: 10, reducedPrice: nil, transportRoutes: ["Майдан Перемоги - Льогокомбінат", "ДЕПО"], routeTextCodes: ["SEC91", "SEC0"])
-    let zhytomyrTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["1A", "1Б", "2", "3", "4", "4А", "6", "7", "7А", "8", "9", "10", "15А", "ДЕПО"], ticketPrice: 4, nightTimeTicketPrice: 10, reducedPrice: nil, transportRoutes: ["Вокзал - Центр - Смолянка - Вокзал (кільцевий)", "Вокзал - Смолянка - Центр - Вокзал (кільцевий)", "Богунія - Вокзал - Смолянка", "Богунія - Смолянка - Вокзал", "Крошня - Залізничний вокзал", "Крошня - майдан Станишівський", "Крошня - ЗОК", "Маликова - Залізничний вокзал", "Маликова - Промислова", "Маликова - майдан Станишівський", "Гідропарк - Космонавтів", "Богунія - Промислова", "Гідропарк - Селецька", "ДЕПО"], routeTextCodes: ["SEB1A", "SEB1B", "SEB2", "SEB3", "SEB4", "SEB4A", "SEB6", "SEB7", "SEB7A", "SEB8", "SEB9", "SEB10", "SEB15A", "SEB0"])
-    let zhytomyrAutobus = TransportModel(transportName: "autobus", transportType: "Автобус", routeNumbers: ["3", "4", "ДЕПО"], ticketPrice: 6, nightTimeTicketPrice: 6, reducedPrice: 3, transportRoutes: ["Богунія - Корбутівка", "Крошня(ТЦ \"Ринг\" - Комбінат силікатних виробів)", "ДЕПО"], routeTextCodes: ["SEA3", "SEA4", "SEA0"])
+    let zhytomyrTram = TransportModel(transportName: "tram", transportType: "Трамвай", routeNumbers: ["91", "ДЕПО"], ticketPrice: 4, nightTimeTicketPrice: 10, reducedPrice: nil, transportRoutes: ["Майдан Перемоги - Льогокомбінат", "ДЕПО"], routeTextCodes: ["SEC91", "SEC0"], reducedPriceRouteTextCodes: nil)
+    let zhytomyrTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["1A", "1Б", "2", "3", "4", "4А", "6", "7", "7А", "8", "9", "10", "15А", "ДЕПО"], ticketPrice: 4, nightTimeTicketPrice: 10, reducedPrice: nil, transportRoutes: ["Вокзал - Центр - Смолянка - Вокзал (кільцевий)", "Вокзал - Смолянка - Центр - Вокзал (кільцевий)", "Богунія - Вокзал - Смолянка", "Богунія - Смолянка - Вокзал", "Крошня - Залізничний вокзал", "Крошня - майдан Станишівський", "Крошня - ЗОК", "Маликова - Залізничний вокзал", "Маликова - Промислова", "Маликова - майдан Станишівський", "Гідропарк - Космонавтів", "Богунія - Промислова", "Гідропарк - Селецька", "ДЕПО"], routeTextCodes: ["SEB1A", "SEB1B", "SEB2", "SEB3", "SEB4", "SEB4A", "SEB6", "SEB7", "SEB7A", "SEB8", "SEB9", "SEB10", "SEB15A", "SEB0"], reducedPriceRouteTextCodes: nil)
+    let zhytomyrAutobus = TransportModel(transportName: "autobus", transportType: "Автобус", routeNumbers: ["3", "4", "ДЕПО"], ticketPrice: 6, nightTimeTicketPrice: nil, reducedPrice: 3, transportRoutes: ["Богунія - Корбутівка", "Крошня(ТЦ \"Ринг\" - Комбінат силікатних виробів)", "ДЕПО"], routeTextCodes: ["SEA3", "SEA4", "SEA0"], reducedPriceRouteTextCodes: ["PEA3", "PEA4", "PEA0"])
 //    let ivanoFrankivskTram = TransportModel(transportName: "tram", transportType: "Трамвай", routeNumbers: ["1", "2", "3", "4", "5", "6"], ticketPrice: 4, nightTimeTicketPrice: 4, transportRoutes: ["Залізничний вокзал - Електромережа", "Барське шосе - Вишенька", "Вишенька - Електромережа", "Барське шосе - Залізничний вокзал", "Барське шосе - Електромережа", "Залізничний вокзал - Вишенька"], routeTextCodes: ["SAC1", "SAC2", "SAC3", "SAC4", "SAC5", "SAC6"])
     
-    let ivanoFrankivskTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["2", "3", "4", "5", "6", "7", "10"], ticketPrice: 5, nightTimeTicketPrice: 5, reducedPrice: nil, transportRoutes: ["Вокзал - вул. Юності \"Пресмаш\"", "АТ \"Родон\" - Обласна лікарня", "вул. Дністровська - фірма \"Барва\"", "вул. Дністровська - Тролейбусне депо", "Радіозавод - Європейська площа", "м-н \"Каскад\" - Європейська площа", "вул. Симоненка - вул. Юності \"Пресмаш\""], routeTextCodes: ["SHB2", "SHB3", "SHB4", "SHB5", "SHB6", "SHB7", "SHB10"])
-    let ivanoFrankivskAutobus = TransportModel(transportName: "autobus", transportType: "Автобус", routeNumbers: ["27", "40", "41", "45", "47", "49", "55"], ticketPrice: 5, nightTimeTicketPrice: 5, reducedPrice: nil, transportRoutes: ["м-н \"Каскад\" - вул. І Пулюя", "м-н \"Каскад\"  - АС-3", "Онкодиспансер - м-н \"Каскад\"", "с. Підлужжя - вул. Набережна", "Вокзал - Братківці", "АС-4 - вул Набережна", "Хоткевича - с.Черніїв", "Хоткевича - с. Хриплин", "с. Крихівці - АС-2", "Вокзал - с. Черніїв"], routeTextCodes: ["SHA27", "SHA40", "SHA41", "SHA45", "SHA47", "SHA49", "SHA55"])
+    let ivanoFrankivskTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["2", "3", "4", "5", "6", "7", "10"], ticketPrice: 5, nightTimeTicketPrice: nil, reducedPrice: nil, transportRoutes: ["Вокзал - вул. Юності \"Пресмаш\"", "АТ \"Родон\" - Обласна лікарня", "вул. Дністровська - фірма \"Барва\"", "вул. Дністровська - Тролейбусне депо", "Радіозавод - Європейська площа", "м-н \"Каскад\" - Європейська площа", "вул. Симоненка - вул. Юності \"Пресмаш\""], routeTextCodes: ["SHB2", "SHB3", "SHB4", "SHB5", "SHB6", "SHB7", "SHB10"], reducedPriceRouteTextCodes: nil)
+    let ivanoFrankivskAutobus = TransportModel(transportName: "autobus", transportType: "Автобус", routeNumbers: ["27", "40", "41", "45", "47", "49", "55"], ticketPrice: 5, nightTimeTicketPrice: nil, reducedPrice: nil, transportRoutes: ["м-н \"Каскад\" - вул. І Пулюя", "м-н \"Каскад\"  - АС-3", "Онкодиспансер - м-н \"Каскад\"", "с. Підлужжя - вул. Набережна", "Вокзал - Братківці", "АС-4 - вул Набережна", "Хоткевича - с.Черніїв", "Хоткевича - с. Хриплин", "с. Крихівці - АС-2", "Вокзал - с. Черніїв"], routeTextCodes: ["SHA27", "SHA40", "SHA41", "SHA45", "SHA47", "SHA49", "SHA55"], reducedPriceRouteTextCodes: nil)
     // Flayout for Transport Type Tile centering
    let transportTypeColumnLayout = FlowLayout()
     let routesViewColumnLayout = FlowLayout()
+  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let currentTime = Calendar.current.dateComponents([.hour, .minute], from: Date())
-        if let currentTimeDate = Calendar.current.date(from: currentTime){
-            verifyTimeOfDay(currentDate: currentTimeDate)
-        } else {
-            print("There is no data")
-            nightTime = false
-        }
+        checkTimeOfDay()
         let ivanoFrankivskCityTransport: [TransportModel] = [ivanoFrankivskTrolleybus, ivanoFrankivskAutobus]
         let zhitomirCityTransport: [TransportModel] = [zhytomyrTram, zhytomyrTrolleybus, zhytomyrAutobus]
         let vinnitsaCityTransport: [TransportModel] = [vinnitsaTram, vinnitsaTrolleybus, vinnitsaAutobus]
@@ -115,6 +104,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         paymentView.isHidden = true
         routesView.isHidden = true
         routesCollectionView.isHidden = true
+        routesCollectionView.layer.cornerRadius = 5
         informationView.scrollView.layer.cornerRadius = 10
         informationView.scrollView.layer.borderWidth = 1
         informationView.scrollView.layer.borderColor = UIColor.gray.cgColor
@@ -150,6 +140,14 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         clearButtonsAndStack()
         transportTypeView.unblur()
+
+        UIView.animate(withDuration: 0.0) { [self] in
+            routesCollectionView.reloadData()
+        } completion: { _ in
+            self.routesCollectionViewHeightConstraint.constant = self.routesCollectionView.collectionViewLayout.collectionViewContentSize.height
+        }
+
+       
         if !informationView.isHidden || dropDownMenuOfcitysIsHidden == false {
             UIView.animate(withDuration: 0.0, animations: {
             }) { (_) in
@@ -166,6 +164,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
                 }
             }
         } else {
+            print("Its in Album mode!")
             widthOfVerticalStack = 4
             if let transport = transport {
                 updateRouteStackView(transport: transport, widthOfVerticalStack: widthOfVerticalStack)
@@ -207,7 +206,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         
             transportTypeCell.transportTypeImage.image = UIImage(named: (city?.cityTransport[indexPath.row].transportName)!)
         //cell.layer.bounds.size.height = 120
-            
+            transportTypeCell.layer.cornerRadius = 5
             return transportTypeCell
         } else {
         let routeCell = routesCollectionView.dequeueReusableCell(withReuseIdentifier: "RoutesCollectionViewCell", for: indexPath) as! RoutesCollectionViewCell
@@ -235,7 +234,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == transportTypeView.transportTypeCollectionView {
-            return CGSize(width: 84, height: 107)
+            return CGSize(width: 92, height: 107)
         } else {
             if transport?.routeNumbers[indexPath.row] == "ДЕПО" {
                 return CGSize(width: 80, height: 45)
@@ -251,15 +250,28 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         if collectionView == transportTypeView.transportTypeCollectionView {
            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TransportTypeCollectionViewHeader", for: indexPath)
             transportTypeColumnLayout.headerReferenceSize = CGSize(width: 0, height: 50)
+            print("TransportTypeCollectionView size is \(headerView.bounds.size)")
            return headerView
             
         } else {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "RoutesCollectionViewHeader", for: indexPath)
-            routesViewColumnLayout.headerReferenceSize = CGSize(width: 0, height: 50)
-            return headerView
-        }
-       }
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "RoutesCollectionViewHeader", for: indexPath) as! RoutesHeaderCollectionReusableView
+            if traitCollection.verticalSizeClass == .compact {
+            routesViewColumnLayout.headerReferenceSize = CGSize(width: 0, height: 150)
+            } else {
+                routesViewColumnLayout.headerReferenceSize = CGSize(width: 0, height: 180)
+            }
 
+                if let transport = transport {
+                headerView.routesViewTransportTypeTyle.image = UIImage(named: transport.transportName)
+                    
+                } else {
+                    headerView.routesViewTransportTypeTyle.image = nil
+                }
+            print("RoutesCollectionView size is \(headerView.bounds.size)")
+                return headerView
+            }
+       }
+    
         
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -270,6 +282,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         } else {
             let routeNumberCell = collectionView.cellForItem(at: indexPath) as! RoutesCollectionViewCell
             let selectedRouteNumber = routeNumberCell.routesCollectionViewCellLabel.text!
+            checkTimeOfDay()
             routeButonTapped(routeNumber: selectedRouteNumber)
         }
     }
@@ -341,7 +354,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     // route button tapped
     func routeButonTapped(routeNumber: String) {
         guard let transport = transport else {print("there is no transport"); return}
-        paymentView.updateUI(transport: transport, route: routeNumber)
+        paymentView.updateUI(transport: transport, route: routeNumber, nightTime: nightTime!)
         routesView.isHidden = true
         shadowForView(shadowView: paymentView)
         paymentView.isHidden = false
@@ -539,8 +552,6 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
        // cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 1))
     }
     func  verifyTimeOfDay(currentDate: Date){
-        
-
         let nightTimeBegin = "22:00:00"
         let nightTimeEnd = "06:00:00"
         let dateFormatter = DateFormatter()
@@ -565,7 +576,14 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         }
     }
     func checkTimeOfDay(){
-        
+        let currentTime = Calendar.current.dateComponents([.hour, .minute], from: Date())
+        if let currentTimeDate = Calendar.current.date(from: currentTime){
+            verifyTimeOfDay(currentDate: currentTimeDate)
+            print("\(nightTime)")
+        } else {
+            print("There is no data")
+            nightTime = false
+        }
     }
 
 
