@@ -140,11 +140,17 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         clearButtonsAndStack()
         transportTypeView.unblur()
-
+        
+        transportTypeView.transportTypeCollectionView.reloadData()
+        routesCollectionView.reloadData()
+        
         UIView.animate(withDuration: 0.0) { [self] in
             routesCollectionView.reloadData()
+            transportTypeView.transportTypeCollectionView.reloadData()
+            
         } completion: { _ in
             self.routesCollectionViewHeightConstraint.constant = self.routesCollectionView.collectionViewLayout.collectionViewContentSize.height
+            self.transportTypeView.transportTypeCollectionViewHeight.constant = self.transportTypeView.transportTypeCollectionView.collectionViewLayout.collectionViewContentSize.height
         }
 
        
@@ -226,7 +232,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if collectionView == transportTypeView.transportTypeCollectionView {
-            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            return UIEdgeInsets(top: 30, left: 10, bottom: 10, right: 10)
         } else {
             return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
@@ -247,18 +253,39 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let deviceScreen = UIScreen.main.bounds
         if collectionView == transportTypeView.transportTypeCollectionView {
-           let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TransportTypeCollectionViewHeader", for: indexPath)
-            transportTypeColumnLayout.headerReferenceSize = CGSize(width: 0, height: 50)
-            print("TransportTypeCollectionView size is \(headerView.bounds.size)")
-           return headerView
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TransportTypeCollectionViewHeader", for: indexPath)
+            if traitCollection.verticalSizeClass == .compact {
+                transportTypeColumnLayout.headerReferenceSize = CGSize(width: 0, height: 28)
+            } else if deviceScreen.height < 660 {
+                transportTypeColumnLayout.headerReferenceSize = CGSize(width: 0, height: 65)
+            } else {
+                transportTypeColumnLayout.headerReferenceSize = CGSize(width: 0, height: 55)
+            }
             
+           return headerView
+    
         } else {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "RoutesCollectionViewHeader", for: indexPath) as! RoutesHeaderCollectionReusableView
+            
+            headerView.routesViewTransportTypeTyle.isHidden = false
+            print("DEvice Screen Size: \(deviceScreen)")
             if traitCollection.verticalSizeClass == .compact {
+                print("DeviceScreenHeigth: \(deviceScreen.height)")
+                if deviceScreen.height < 370 {
+                    routesViewColumnLayout.headerReferenceSize = CGSize(width: 0, height: 100)
+                    headerView.routesViewTransportTypeTyle.isHidden = true
+                } else {
             routesViewColumnLayout.headerReferenceSize = CGSize(width: 0, height: 150)
+                }
             } else {
+                if deviceScreen.height < 660 {
+                    routesViewColumnLayout.headerReferenceSize = CGSize(width: 0, height: 150)
+                } else {
                 routesViewColumnLayout.headerReferenceSize = CGSize(width: 0, height: 180)
+                }
             }
 
                 if let transport = transport {
