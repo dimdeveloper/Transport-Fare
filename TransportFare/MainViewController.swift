@@ -382,8 +382,9 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     func routeButonTapped(routeNumber: String) {
         guard let transport = transport else {print("there is no transport"); return}
         paymentView.updateUI(transport: transport, route: routeNumber, nightTime: nightTime!)
-        routesView.isHidden = true
+        //routesView.isHidden = true
         shadowForView(shadowView: paymentView)
+        //routesCollectionView.blur(2.0)
         paymentView.isHidden = false
     }
 //    func makePayment(textMsg: String){
