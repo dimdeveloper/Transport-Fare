@@ -33,7 +33,15 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     @IBOutlet weak var paymentView: PaymentView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet var mainBackButton: UIButton!
-    
+    @IBOutlet weak var paymentViewBackButton: UIButton!
+    @IBOutlet var paymentTransparentView: UIView!
+    @IBAction func paymentViewBackButton(_ sender: UIButton) {
+        print("PaymentBackButtonIsTapped")
+        paymentView.isHidden = true
+        //routesCollectionView.unblur()
+        routesCollectionView.isHidden = false
+        
+    }
     @IBOutlet var routesCollectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var routesCollectionViewWidth: NSLayoutConstraint!
     @IBAction func backButton(_ sender: UIButton) {
@@ -115,6 +123,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         transportTypeView.transportTypeCollectionView.delegate = self
         routesCollectionView.delegate = self
         routesCollectionView.dataSource = self
+        
         loadUserDefaults()
         updateCityDropDown()
         dropDownMenuOfcitysIsHidden = true
@@ -136,30 +145,37 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         }
 
     }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         clearButtonsAndStack()
         transportTypeView.unblur()
         
-        transportTypeView.transportTypeCollectionView.reloadData()
-        routesCollectionView.reloadData()
         
         UIView.animate(withDuration: 0.0) { [self] in
-            routesCollectionView.reloadData()
             transportTypeView.transportTypeCollectionView.reloadData()
-            
+            routesCollectionView.reloadData()
         } completion: { _ in
-            self.routesCollectionViewHeightConstraint.constant = self.routesCollectionView.collectionViewLayout.collectionViewContentSize.height
-            self.transportTypeView.transportTypeCollectionViewHeight.constant = self.transportTypeView.transportTypeCollectionView.collectionViewLayout.collectionViewContentSize.height
-        }
+            UIView.animate(withDuration: 0.0) {
+                self.routesCollectionViewHeightConstraint.constant = self.routesCollectionView.collectionViewLayout.collectionViewContentSize.height
+                            self.transportTypeView.transportTypeCollectionViewHeight.constant = self.transportTypeView.transportTypeCollectionView.collectionViewLayout.collectionViewContentSize.height
+            } completion: { [self] _ in
+                if !informationView.isHidden || dropDownMenuOfcitysIsHidden == false {
+                    
+                    UIView.animate(withDuration: 0.0) {
+                        
+                    } completion: { _ in
+                        self.transportTypeView.blur(2.0)
+                    }
 
-       
-        if !informationView.isHidden || dropDownMenuOfcitysIsHidden == false {
-            UIView.animate(withDuration: 0.0, animations: {
-            }) { (_) in
-               self.transportTypeView.blur(2.0)
+                }
+                
             }
         }
+
+        
+
+       
+        
         if traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular {
             widthOfVerticalStack = 3
             if let transport = transport {
@@ -290,11 +306,11 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
 
                 if let transport = transport {
                 headerView.routesViewTransportTypeTyle.image = UIImage(named: transport.transportName)
-                    
+                    headerView.routesCollectionViewTransportTypeName.text = transport.transportType
                 } else {
-                    headerView.routesViewTransportTypeTyle.image = nil
+                    //headerView.routesViewTransportTypeTyle.image = nil
                 }
-            print("RoutesCollectionView size is \(headerView.bounds.size)")
+            
                 return headerView
             }
        }
@@ -311,6 +327,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
             let selectedRouteNumber = routeNumberCell.routesCollectionViewCellLabel.text!
             checkTimeOfDay()
             routeButonTapped(routeNumber: selectedRouteNumber)
+            
         }
     }
     // ending setup CollectionView for Transport Type Tile
@@ -382,8 +399,9 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     func routeButonTapped(routeNumber: String) {
         guard let transport = transport else {print("there is no transport"); return}
         paymentView.updateUI(transport: transport, route: routeNumber, nightTime: nightTime!)
-        //routesView.isHidden = true
+        routesCollectionView.isHidden = true
         shadowForView(shadowView: paymentView)
+
         //routesCollectionView.blur(2.0)
         paymentView.isHidden = false
     }
@@ -429,6 +447,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
             subview.removeFromSuperview()
         }
     }
+    
     func shadowForView(shadowView: UIView){
         shadowView.layer.shadowColor = UIColor.black.cgColor
         shadowView.layer.shadowOpacity = 0.5
@@ -469,6 +488,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
             print("the URL is not avaolable!")
         }
     }
+    
     
     func updateDropDownMenuOfCyties(){
         if dropDownMenuOfcitysIsHidden == false {
@@ -613,6 +633,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
             nightTime = false
         }
     }
+    
 
 
 }

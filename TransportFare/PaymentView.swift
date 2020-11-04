@@ -23,12 +23,17 @@ class PaymentView: UIView {
     @IBOutlet weak var farePaymentButton: UIButton!
     @IBOutlet weak var reducedFarePaymentButton: UIButton!
     @IBOutlet weak var ticketPriceLabel: UILabel!
+    @IBOutlet weak var paymentViewBackButton: UIButton!
     @IBOutlet weak var reducedPriceTicketLabel: UILabel!
     @IBAction func farePayment(_ sender: UIButton) {
+        
         delegate?.sendSms(textMsg: smsTextCode!)
     }
     @IBOutlet weak var usualPriceStackView: UIStackView!
     @IBOutlet weak var reducedPriceStackView: UIStackView!
+    @IBAction func paymentViewBackButtonPressed(_ sender: UIButton){
+        
+    }
     @IBAction func reducedPriceFarePayment(_ sender: UIButton){
         delegate?.sendSms(textMsg: reducedPriceSmsTextCode!)
     }
@@ -87,6 +92,21 @@ class PaymentView: UIView {
         routeNumber.text = "Маршрут №" + route
         
 
+    }
+    override func point(inside point: CGPoint,
+                        with event: UIEvent?) -> Bool
+    {
+        let inside = super.point(inside: point, with: event)
+        if !inside {
+            for subview in subviews {
+                
+                let pointInSubview = subview.convert(point, from: self)
+                if subview.point(inside: pointInSubview, with: event) {
+                    return true
+                }
+            }
+        }
+        return inside
     }
 
 
