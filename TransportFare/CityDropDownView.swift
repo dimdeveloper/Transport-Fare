@@ -21,18 +21,26 @@ weak var delegate: CityDropDown?
 
     @IBAction func dropDownMenuButtonTapped (_ sender: UIButton){
         delegate?.menuButtonTapped()
+        print("MenuButtonTapped")
     }
     @objc func cytiButtonTapped(sender: UIButton){
         delegate?.cityDropDownButtonTapped(sender: sender)
     }
 
     func updateCityDropDownButtons(){
-        for city in cities {
+        for (index, city) in cities.enumerated() {
             let button = UIButton()
             button.setTitle(city.name, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-            citiesButtonsArray.append(button)
+            print(index)
+            if index == 3 {
+                button.backgroundColor = UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 1)
+            } else {
+//                button.backgroundColor = UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 0.5)
+            }
+            
             button.addTarget(self, action: #selector(cytiButtonTapped), for: .touchUpInside)
+            citiesButtonsArray.append(button)
         }
 //        for button in citiesButtonsArray {
   //          cityStackView.addArrangedSubview(button)
@@ -41,9 +49,16 @@ weak var delegate: CityDropDown?
     
    func updateCityDropDownMenu(){
 //    cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 1))
-        for button in citiesButtonsArray {
-            cityStackView.addArrangedSubview(button)
+    for button in citiesButtonsArray {
+            //cityStackView.addArrangedSubview(button)
+            cityStackView.insertArrangedSubview(button, at: 0)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.trailingAnchor.constraint(equalTo: cityStackView.trailingAnchor).isActive = true
+            button.leadingAnchor.constraint(equalTo: cityStackView.leadingAnchor).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 33).isActive = true
         }
+    cityStackView.backgroundColor = UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 0.5)
+    cityStackView.layer.cornerRadius = 5
     }
 
 }

@@ -25,13 +25,16 @@ class FlowLayout: UICollectionViewFlowLayout {
 //    required init?(coder aDecoder: NSCoder) {
 //        fatalError("init(coder:) has not been implemented")
 //    }
+//    self.minimumInteritemSpacing = 15.0
+    
 
+
+    
     
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let layoutAttributes = super.layoutAttributesForElements(in: rect)!.map { $0.copy() as! UICollectionViewLayoutAttributes }
         guard scrollDirection == .vertical else { return layoutAttributes }
-
         // Filter attributes to compute only cell attributes
         let cellAttributes = layoutAttributes.filter({ $0.representedElementCategory == .cell })
 
@@ -52,7 +55,7 @@ class FlowLayout: UICollectionViewFlowLayout {
                 leftInset = attribute.frame.maxX + minimumInteritemSpacing
             }
         }
-
+        
         return layoutAttributes
     }
 

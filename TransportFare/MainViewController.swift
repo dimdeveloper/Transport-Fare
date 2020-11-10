@@ -10,7 +10,7 @@ import UIKit
 import MessageUI
 class MainViewController: UIViewController, TransportType, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PaymentViewProtocol, CityDropDown, MFMessageComposeViewControllerDelegate {
     func delegateWithTransportType(sender: UIButton) {
-        print("Hello")
+    
     }
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
@@ -61,8 +61,8 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
          transport = nil
             
         }
-       if dropDownMenuOfcitysIsHidden == false {
-            dropDownMenuOfcitysIsHidden = true
+       if isDropDownCitiesMenuHidden == false {
+            isDropDownCitiesMenuHidden = true
             updateDropDownMenuOfCyties()
         }
     }
@@ -86,15 +86,17 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     let lvivTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["22", "23", "24", "25", "27", "29", "30", "31", "32", "33"], ticketPrice: 6, nightTimeTicketPrice: nil, reducedPrice: 3, transportRoutes: ["Університет — вул. Академіка Підстригача", "Автовокзал — вул. Ряшівська", "вул. Шота Руставелі — Санта Барбара", "вул. Шота Руставелі — Автовокзал", "станція Скнилів — пл. Кропивницького", "Університет — Аеропорт", "вул. Ряшівська - Університет", "пл. Петрушевича — Сихівське кладовище", "Університет — вул. Суботівська", "пл. Івана Підкови — вул. Грінченка"], routeTextCodes: ["SN22", "SN23", "SN24", "SN25", "SN27", "SN29", "SN30", "SN31", "SN32", "SN33"], reducedPriceRouteTextCodes: ["PN22", "PN23", "PN24", "PN25", "PN27", "PN29", "PN30", "PN31", "PN32", "PN33"])
 //    let lvivAutobus = TransportModel(transportName: "autobus", transportType: "Автобус", routeNumbers: ["1", "2", "5", "6", "7", "8", "11", "14", "16", "17", "19", "20", "21", "22", "24", "27", "30"], ticketPrice: 5, nightTimeTicketPrice: 5, transportRoutes: ["Залізничний вокзал - Педучилище", "Вул. Сергія Зулінського - Площа Шкільна", "П'ятничани - Вул. Комарова", "Олієжиркомбінат - Площа Перемоги", "Вул. Якова Шепеля - Пирогово", "Залізничний вокзал - Вул. Бучми (ліс)", "Вул. Ботанічна - Сабарів", "Залізничний вокзал - Будинок відпочинку", "Меморіал Визволення - Барське шосе" + "\n" + " - Аграрний університет", "Залізничний вокзал - Тяжилів \n (Вінниччина-Авто)", "Вишенька - Немирівське шосе", "Меморіал Визволення - Хутір Шевченка", "Барське шосе - Педучилище", "Залізничний вокзал - Мікрорайон \n 'Академічний'", "Вишенька - Вул. Бучми (ліс)", "Залізничний вокзал - Тиврівське шосе", "смт. Десна - Будинок відпочинку"], routeTextCodes: ["SAA1", "SAA2", "SAA5", "SAA6", "SAA7", "SAA8", "SAA11", "SAA14", "SAA16", "SAA17", "SAA19", "SAA20", "SAA21", "SAA22", "SAA24", "SAA27", "SAA30"])
     let zhytomyrTram = TransportModel(transportName: "tram", transportType: "Трамвай", routeNumbers: ["91", "ДЕПО"], ticketPrice: 4, nightTimeTicketPrice: 10, reducedPrice: nil, transportRoutes: ["Майдан Перемоги - Льогокомбінат", "ДЕПО"], routeTextCodes: ["SEC91", "SEC0"], reducedPriceRouteTextCodes: nil)
-    let zhytomyrTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["1A", "1Б", "2", "3", "4", "4А", "6", "7", "7А", "8", "9", "10", "15А", "ДЕПО"], ticketPrice: 4, nightTimeTicketPrice: 10, reducedPrice: nil, transportRoutes: ["Вокзал - Центр - Смолянка - Вокзал (кільцевий)", "Вокзал - Смолянка - Центр - Вокзал (кільцевий)", "Богунія - Вокзал - Смолянка", "Богунія - Смолянка - Вокзал", "Крошня - Залізничний вокзал", "Крошня - майдан Станишівський", "Крошня - ЗОК", "Маликова - Залізничний вокзал", "Маликова - Промислова", "Маликова - майдан Станишівський", "Гідропарк - Космонавтів", "Богунія - Промислова", "Гідропарк - Селецька", "ДЕПО"], routeTextCodes: ["SEB1A", "SEB1B", "SEB2", "SEB3", "SEB4", "SEB4A", "SEB6", "SEB7", "SEB7A", "SEB8", "SEB9", "SEB10", "SEB15A", "SEB0"], reducedPriceRouteTextCodes: nil)
+    let zhytomyrTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["1A", "1Б", "2", "3", "4", "4А", "6", "7", "7А", "8", "9", "10", "15А", "ДЕПО"], ticketPrice: 4, nightTimeTicketPrice: 10, reducedPrice: nil, transportRoutes: ["Вокзал - Центр - \n Смолянка - Вокзал (кільцевий)", "Вокзал - Смолянка - \n Центр - Вокзал (кільцевий)", "Богунія - Вокзал - Смолянка", "Богунія - Смолянка - Вокзал", "Крошня - Залізничний вокзал", "Крошня - майдан Станишівський", "Крошня - ЗОК", "Маликова - Залізничний вокзал", "Маликова - Промислова", "Маликова - майдан Станишівський", "Гідропарк - Космонавтів", "Богунія - Промислова", "Гідропарк - Селецька", "ДЕПО"], routeTextCodes: ["SEB1A", "SEB1B", "SEB2", "SEB3", "SEB4", "SEB4A", "SEB6", "SEB7", "SEB7A", "SEB8", "SEB9", "SEB10", "SEB15A", "SEB0"], reducedPriceRouteTextCodes: nil)
     let zhytomyrAutobus = TransportModel(transportName: "autobus", transportType: "Автобус", routeNumbers: ["3", "4", "ДЕПО"], ticketPrice: 6, nightTimeTicketPrice: nil, reducedPrice: 3, transportRoutes: ["Богунія - Корбутівка", "Крошня(ТЦ \"Ринг\" - Комбінат силікатних виробів)", "ДЕПО"], routeTextCodes: ["SEA3", "SEA4", "SEA0"], reducedPriceRouteTextCodes: ["PEA3", "PEA4", "PEA0"])
 //    let ivanoFrankivskTram = TransportModel(transportName: "tram", transportType: "Трамвай", routeNumbers: ["1", "2", "3", "4", "5", "6"], ticketPrice: 4, nightTimeTicketPrice: 4, transportRoutes: ["Залізничний вокзал - Електромережа", "Барське шосе - Вишенька", "Вишенька - Електромережа", "Барське шосе - Залізничний вокзал", "Барське шосе - Електромережа", "Залізничний вокзал - Вишенька"], routeTextCodes: ["SAC1", "SAC2", "SAC3", "SAC4", "SAC5", "SAC6"])
     
     let ivanoFrankivskTrolleybus = TransportModel(transportName: "trolleybus", transportType: "Тролейбус", routeNumbers: ["2", "3", "4", "5", "6", "7", "10"], ticketPrice: 5, nightTimeTicketPrice: nil, reducedPrice: nil, transportRoutes: ["Вокзал - вул. Юності \"Пресмаш\"", "АТ \"Родон\" - Обласна лікарня", "вул. Дністровська - фірма \"Барва\"", "вул. Дністровська - Тролейбусне депо", "Радіозавод - Європейська площа", "м-н \"Каскад\" - Європейська площа", "вул. Симоненка - вул. Юності \"Пресмаш\""], routeTextCodes: ["SHB2", "SHB3", "SHB4", "SHB5", "SHB6", "SHB7", "SHB10"], reducedPriceRouteTextCodes: nil)
     let ivanoFrankivskAutobus = TransportModel(transportName: "autobus", transportType: "Автобус", routeNumbers: ["27", "40", "41", "45", "47", "49", "55"], ticketPrice: 5, nightTimeTicketPrice: nil, reducedPrice: nil, transportRoutes: ["м-н \"Каскад\" - вул. І Пулюя", "м-н \"Каскад\"  - АС-3", "Онкодиспансер - м-н \"Каскад\"", "с. Підлужжя - вул. Набережна", "Вокзал - Братківці", "АС-4 - вул Набережна", "Хоткевича - с.Черніїв", "Хоткевича - с. Хриплин", "с. Крихівці - АС-2", "Вокзал - с. Черніїв"], routeTextCodes: ["SHA27", "SHA40", "SHA41", "SHA45", "SHA47", "SHA49", "SHA55"], reducedPriceRouteTextCodes: nil)
     // Flayout for Transport Type Tile centering
-   let transportTypeColumnLayout = FlowLayout()
+    let transportTypeColumnLayout = FlowLayout()
+    
     let routesViewColumnLayout = FlowLayout()
+    var isDropDownCitiesMenuHidden = true
   
     
     override func viewDidLoad() {
@@ -113,17 +115,20 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         routesView.isHidden = true
         routesCollectionView.isHidden = true
         routesCollectionView.layer.cornerRadius = 5
+        routesCollectionView.layer.masksToBounds = false
+        shadowForView(shadowView: routesCollectionView)
         informationView.scrollView.layer.cornerRadius = 10
         informationView.scrollView.layer.borderWidth = 1
         informationView.scrollView.layer.borderColor = UIColor.gray.cgColor
         transportTypeView.delegate = self
+        transportTypeColumnLayout.minimumLineSpacing = 18
+        transportTypeColumnLayout.minimumInteritemSpacing = 20
         paymentView.delegate = self
         cityDropDownView.delegate = self
         transportTypeView.transportTypeCollectionView.dataSource = self
         transportTypeView.transportTypeCollectionView.delegate = self
         routesCollectionView.delegate = self
         routesCollectionView.dataSource = self
-        
         loadUserDefaults()
         updateCityDropDown()
         dropDownMenuOfcitysIsHidden = true
@@ -159,7 +164,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
                 self.routesCollectionViewHeightConstraint.constant = self.routesCollectionView.collectionViewLayout.collectionViewContentSize.height
                             self.transportTypeView.transportTypeCollectionViewHeight.constant = self.transportTypeView.transportTypeCollectionView.collectionViewLayout.collectionViewContentSize.height
             } completion: { [self] _ in
-                if !informationView.isHidden || dropDownMenuOfcitysIsHidden == false {
+                if !informationView.isHidden || !isDropDownCitiesMenuHidden {
                     
                     UIView.animate(withDuration: 0.0) {
                         
@@ -489,29 +494,59 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         }
     }
     
-    
     func updateDropDownMenuOfCyties(){
-        if dropDownMenuOfcitysIsHidden == false {
-            cityDropDownView.cityStackView.removeBackground()
-            cityDropDownView.cityStackView.spacing = 10
-            hideCytiesDropDownMenu(isHidden: false)
+        if isDropDownCitiesMenuHidden == false {
+            //cityDropDownView.cityStackView.removeBackground()
+            
+            UIView.animate(withDuration: 0.1) {
+                self.cityDropDownView.cityStackView.spacing = 10
+            }
+            
+            //hideCytiesDropDownMenu(isHidden: false)
             // add opacity backGround
-            cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 0.5))
+//            cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 0.5))
             transportTypeView.blur()
             backButton.isHidden = false
         } else {
-            cityDropDownView.cityStackView.removeBackground()
-            cityDropDownView.cityStackView.spacing = -33
-            hideCytiesDropDownMenu(isHidden: dropDownMenuOfcitysIsHidden)
+            //cityDropDownView.cityStackView.removeBackground()
+        
+            UIView.animate(withDuration: 0.1) {
+                self.cityDropDownView.cityStackView.spacing = -32
+            }
+            
+            //hideCytiesDropDownMenu(isHidden: dropDownMenuOfcitysIsHidden)
             // adding nonOpacity background
-            cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 1))
+//            cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 1))
             transportTypeView.unblur()
             backButton.isHidden = true
         }
     }
+//    func updateDropDownMenuOfCyties(){
+//        if dropDownMenuOfcitysIsHidden == false {
+//            cityDropDownView.cityStackView.removeBackground()
+//            cityDropDownView.cityStackView.spacing = 10
+//            hideCytiesDropDownMenu(isHidden: false)
+//            // add opacity backGround
+//            cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 0.5))
+//            transportTypeView.blur()
+//            backButton.isHidden = false
+//        } else {
+//            cityDropDownView.cityStackView.removeBackground()
+//            cityDropDownView.cityStackView.spacing = -33
+//            hideCytiesDropDownMenu(isHidden: dropDownMenuOfcitysIsHidden)
+//            // adding nonOpacity background
+//            cityDropDownView.cityStackView.addBackground(color: UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 1))
+//            transportTypeView.unblur()
+//            backButton.isHidden = true
+//        }
+//    }
     func menuButtonTapped() {
-        dropDownMenuOfcitysIsHidden = !dropDownMenuOfcitysIsHidden
+        isDropDownCitiesMenuHidden = !isDropDownCitiesMenuHidden
+        //dropDownMenuOfcitysIsHidden = !dropDownMenuOfcitysIsHidden
         updateDropDownMenuOfCyties()
+        print(cityDropDownView.cityStackView.spacing)
+
+        
     }
     func updateCollectionView(collectionView: UICollectionView, completion: () -> Void){
         collectionView.reloadData()
@@ -523,8 +558,8 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
             let index = cities.firstIndex(of: city)
             if city.name == sender.titleLabel?.text {
                 let cityChoosen = cities.remove(at: index!)
-                cities.insert(cityChoosen, at: 0)
-                //saving city choosing
+                cities.insert(cityChoosen, at: 3)
+                print(cities)
                 self.city = cityChoosen
                 
                 
@@ -549,7 +584,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
                 
                 
                 let jsonEncoder = JSONEncoder()
-                if let data = try? jsonEncoder.encode(cityChoosen) {
+                if let data = try? jsonEncoder.encode(self.city) {
                     let userDefaults = UserDefaults.standard
                     userDefaults.set(data, forKey: "CityChoosen")
                 }
@@ -560,7 +595,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         updateCityDropDown()
         UIView.animate(withDuration: 0.0, animations: {
         }) { _ in
-            self.dropDownMenuOfcitysIsHidden = true
+            self.isDropDownCitiesMenuHidden = true
             self.updateDropDownMenuOfCyties()
         }
         
@@ -577,7 +612,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         
             let index = cities.firstIndex(of: city!)
         let savedCity = cities.remove(at: index!)
-        cities.insert(savedCity, at: 0)
+        cities.insert(savedCity, at: 3)
         
     }
     func clearCityStackView(){
