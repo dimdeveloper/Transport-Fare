@@ -9,7 +9,6 @@
 import UIKit
 
 protocol TransportType: class {
-    func delegateWithTransportType(sender: UIButton)
     func informationButtonTapped()
     func shareButtonTapped()
 }
@@ -20,16 +19,13 @@ class TransportTypeView: UIView {
     @IBOutlet weak var transportTypeCollectionViewHeight:NSLayoutConstraint!
     @IBOutlet var transportTypeButtons: [UIButton]!
     @IBOutlet weak var checkBill: UIButton!
-
     @IBAction func informationButtonTapped(_ sender: UIButton) {
         delegate?.informationButtonTapped()
     }
-
     @IBAction func shareButtonTapped(_ sender: UIButton) {
         delegate?.shareButtonTapped()
     }
     @IBAction func checkBillButtonTapped(_ sender: Any) {
-
          if let url = URL(string: "tel://*111#"),
            UIApplication.shared.canOpenURL(url) {
               if #available(iOS 10, *) {
@@ -42,17 +38,5 @@ class TransportTypeView: UIView {
            }
         
     }
-    @IBAction func transportTypeButtonTapped(_ sender: UIButton) {
-        delegate?.delegateWithTransportType(sender: sender)
-        
-    }
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
 
 }

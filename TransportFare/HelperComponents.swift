@@ -8,25 +8,6 @@
 
 import Foundation
 import UIKit
-extension UIStackView {
-    func addBackground(color: UIColor) {
-        let subView = UIView(frame: bounds)
-        subView.tag = 99
-        subView.backgroundColor = color
-        subView.layer.cornerRadius = 20
-
-        subView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        insertSubview(subView, at: 0)
-
-    }
-    func removeBackground(){
-        subviews.forEach { subview in
-            if subview.tag == 99 {
-                subview.removeFromSuperview()
-            }
-        }
-    }
-}
 extension UIView {
 
     func blur(_ blurRadius: Double = 2.5) {
@@ -82,17 +63,5 @@ extension UIView {
     
     
 }
-extension UIImage {
-    public func resizeToBoundingSquare(_ boundingSquareSideLength : CGFloat) -> UIImage {
-        let imgScale = self.size.width > self.size.height ? boundingSquareSideLength / self.size.width : boundingSquareSideLength / self.size.height
-        let newWidth = self.size.width * imgScale
-        let newHeight = self.size.height * imgScale
-        let newSize = CGSize(width: newWidth, height: newHeight)
-        UIGraphicsBeginImageContext(newSize)
-        self.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
-        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext();
-        return resizedImage!
-    }
-}
+
 

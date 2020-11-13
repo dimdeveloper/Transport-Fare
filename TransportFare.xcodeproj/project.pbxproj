@@ -14,19 +14,13 @@
 		52275D4024B5C11800B76A67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52275D3E24B5C11800B76A67 /* LaunchScreen.storyboard */; };
 		52275D4824B6F60500B76A67 /* TransportTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52275D4724B6F60500B76A67 /* TransportTypeView.swift */; };
 		52275D4C24B6F63700B76A67 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52275D4B24B6F63700B76A67 /* PaymentView.swift */; };
-		52275D4E24B6F96200B76A67 /* RoutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52275D4D24B6F96200B76A67 /* RoutesView.swift */; };
 		52275D5024B70E4E00B76A67 /* TransportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52275D4F24B70E4E00B76A67 /* TransportModel.swift */; };
 		52275D5224B70F8500B76A67 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52275D5124B70F8500B76A67 /* MainViewController.swift */; };
 		522AAAF024DE9611004981D9 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522AAAEF24DE9611004981D9 /* InformationView.swift */; };
-		522AAAF424E514D0004981D9 /* SaveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522AAAF324E514D0004981D9 /* SaveData.swift */; };
-		522D325F24D1A9C700B9EE07 /* tram.png in Resources */ = {isa = PBXBuildFile; fileRef = 522D325E24D1A9C700B9EE07 /* tram.png */; };
-		525704AF24C9571F007A4641 /* BlurredEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525704AE24C9571F007A4641 /* BlurredEffect.swift */; };
 		525704B124C964EF007A4641 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 525704B024C964EF007A4641 /* Main.storyboard */; };
 		525704D724C98C72007A4641 /* HelperComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525704D624C98C72007A4641 /* HelperComponents.swift */; };
 		529621E72519E7B6004D9F93 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529621E62519E7B6004D9F93 /* FlowLayout.swift */; };
 		52AE41852525DD4100ACD1A3 /* RoutesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AE41842525DD4100ACD1A3 /* RoutesCollectionViewCell.swift */; };
-		52BABFED24C31C19001DB1A7 /* ButtonsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BABFEC24C31C19001DB1A7 /* ButtonsModel.swift */; };
-		52BABFEF24C320ED001DB1A7 /* StackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BABFEE24C320ED001DB1A7 /* StackViewModel.swift */; };
 		52BE6D7825188966003EA19A /* TransportTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BE6D7725188966003EA19A /* TransportTypeCollectionViewCell.swift */; };
 		52E5E8B524EE901900A3F612 /* CityDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E5E8B424EE901900A3F612 /* CityDropDownView.swift */; };
 /* End PBXBuildFile section */
@@ -41,19 +35,13 @@
 		52275D4124B5C11800B76A67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52275D4724B6F60500B76A67 /* TransportTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTypeView.swift; sourceTree = "<group>"; };
 		52275D4B24B6F63700B76A67 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
-		52275D4D24B6F96200B76A67 /* RoutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesView.swift; sourceTree = "<group>"; };
 		52275D4F24B70E4E00B76A67 /* TransportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportModel.swift; sourceTree = "<group>"; };
 		52275D5124B70F8500B76A67 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		522AAAEF24DE9611004981D9 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
-		522AAAF324E514D0004981D9 /* SaveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveData.swift; sourceTree = "<group>"; };
-		522D325E24D1A9C700B9EE07 /* tram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tram.png; path = images/tram.png; sourceTree = "<group>"; };
-		525704AE24C9571F007A4641 /* BlurredEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredEffect.swift; sourceTree = "<group>"; };
 		525704B024C964EF007A4641 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../../../.Trash/Main.storyboard; sourceTree = "<group>"; };
 		525704D624C98C72007A4641 /* HelperComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperComponents.swift; sourceTree = "<group>"; };
 		529621E62519E7B6004D9F93 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		52AE41842525DD4100ACD1A3 /* RoutesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesCollectionViewCell.swift; sourceTree = "<group>"; };
-		52BABFEC24C31C19001DB1A7 /* ButtonsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsModel.swift; sourceTree = "<group>"; };
-		52BABFEE24C320ED001DB1A7 /* StackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewModel.swift; sourceTree = "<group>"; };
 		52BE6D7725188966003EA19A /* TransportTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		52E5E8B424EE901900A3F612 /* CityDropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDropDownView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,19 +82,13 @@
 				52275D3C24B5C11800B76A67 /* Assets.xcassets */,
 				52275D3E24B5C11800B76A67 /* LaunchScreen.storyboard */,
 				52275D4124B5C11800B76A67 /* Info.plist */,
-				522D325E24D1A9C700B9EE07 /* tram.png */,
 				525704B024C964EF007A4641 /* Main.storyboard */,
 				52275D4724B6F60500B76A67 /* TransportTypeView.swift */,
 				52275D4B24B6F63700B76A67 /* PaymentView.swift */,
-				52275D4D24B6F96200B76A67 /* RoutesView.swift */,
 				52275D4F24B70E4E00B76A67 /* TransportModel.swift */,
 				52275D5124B70F8500B76A67 /* MainViewController.swift */,
-				52BABFEC24C31C19001DB1A7 /* ButtonsModel.swift */,
-				52BABFEE24C320ED001DB1A7 /* StackViewModel.swift */,
-				525704AE24C9571F007A4641 /* BlurredEffect.swift */,
 				525704D624C98C72007A4641 /* HelperComponents.swift */,
 				522AAAEF24DE9611004981D9 /* InformationView.swift */,
-				522AAAF324E514D0004981D9 /* SaveData.swift */,
 				52E5E8B424EE901900A3F612 /* CityDropDownView.swift */,
 				52BE6D7725188966003EA19A /* TransportTypeCollectionViewCell.swift */,
 				52AE41842525DD4100ACD1A3 /* RoutesCollectionViewCell.swift */,
@@ -184,7 +166,6 @@
 				525704B124C964EF007A4641 /* Main.storyboard in Resources */,
 				52275D4024B5C11800B76A67 /* LaunchScreen.storyboard in Resources */,
 				52275D3D24B5C11800B76A67 /* Assets.xcassets in Resources */,
-				522D325F24D1A9C700B9EE07 /* tram.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,18 +180,13 @@
 				525704D724C98C72007A4641 /* HelperComponents.swift in Sources */,
 				529621E72519E7B6004D9F93 /* FlowLayout.swift in Sources */,
 				52275D5224B70F8500B76A67 /* MainViewController.swift in Sources */,
-				522AAAF424E514D0004981D9 /* SaveData.swift in Sources */,
-				525704AF24C9571F007A4641 /* BlurredEffect.swift in Sources */,
 				52275D4824B6F60500B76A67 /* TransportTypeView.swift in Sources */,
 				52275D4C24B6F63700B76A67 /* PaymentView.swift in Sources */,
 				52E5E8B524EE901900A3F612 /* CityDropDownView.swift in Sources */,
-				52BABFEF24C320ED001DB1A7 /* StackViewModel.swift in Sources */,
 				52BE6D7825188966003EA19A /* TransportTypeCollectionViewCell.swift in Sources */,
 				52275D5024B70E4E00B76A67 /* TransportModel.swift in Sources */,
 				52275D3424B5C11700B76A67 /* AppDelegate.swift in Sources */,
-				52BABFED24C31C19001DB1A7 /* ButtonsModel.swift in Sources */,
 				52275D3624B5C11700B76A67 /* SceneDelegate.swift in Sources */,
-				52275D4E24B6F96200B76A67 /* RoutesView.swift in Sources */,
 				52183EA62542CEF900C54C28 /* RoutesHeaderCollectionReusableView.swift in Sources */,
 				522AAAF024DE9611004981D9 /* InformationView.swift in Sources */,
 			);

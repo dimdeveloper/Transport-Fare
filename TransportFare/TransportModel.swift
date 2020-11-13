@@ -11,7 +11,6 @@ struct City: Codable, Equatable {
     static func == (lhs: City, rhs: City) -> Bool {
         return lhs.name == rhs.name
     }
-
     let name: String
     let cityTransport: [TransportModel]
 }
