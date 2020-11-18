@@ -21,7 +21,6 @@ weak var delegate: CityDropDown?
 
     @IBAction func dropDownMenuButtonTapped (_ sender: UIButton){
         delegate?.menuButtonTapped()
-        print("MenuButtonTapped")
     }
     @objc func cytiButtonTapped(sender: UIButton){
         delegate?.cityDropDownButtonTapped(sender: sender)
@@ -35,16 +34,11 @@ weak var delegate: CityDropDown?
             print(index)
             if index == 3 {
                 button.backgroundColor = UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 1)
-            } else {
-//                button.backgroundColor = UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 0.5)
             }
-            
             button.addTarget(self, action: #selector(cytiButtonTapped), for: .touchUpInside)
             citiesButtonsArray.append(button)
         }
-//        for button in citiesButtonsArray {
-  //          cityStackView.addArrangedSubview(button)
- //       }
+
     }
     
    func updateCityDropDownMenu(){

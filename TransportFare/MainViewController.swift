@@ -36,7 +36,6 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet var mainBackButton: UIButton!
     @IBOutlet var routesCollectionViewHeightConstraint: NSLayoutConstraint!
-//    @IBOutlet var routesCollectionViewWidth: NSLayoutConstraint!
     @IBAction func backButton(_ sender: UIButton) {
         if paymentView.isHidden == false {
             paymentView.isHidden = true
@@ -121,6 +120,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         self.routesCollectionViewHeightConstraint.constant = self.routesCollectionView.collectionViewLayout.collectionViewContentSize.height
                     self.transportTypeView.transportTypeCollectionViewHeight.constant = self.transportTypeView.transportTypeCollectionView.collectionViewLayout.collectionViewContentSize.height
     }
+    // setup variations in addition to change screen orienation
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         transportTypeView.unblur()
         updateViewAfterRotateScreen()
@@ -204,9 +204,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         } else {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "RoutesCollectionViewHeader", for: indexPath) as! RoutesHeaderCollectionReusableView
             headerView.routesViewTransportTypeTyle.isHidden = false
-            print("DEvice Screen Size: \(deviceScreen)")
             if traitCollection.verticalSizeClass == .compact {
-                print("DeviceScreenHeigth: \(deviceScreen.height)")
                 if deviceScreen.height < 370 {
                     routesViewColumnLayout.headerReferenceSize = CGSize(width: 0, height: 100)
                     headerView.routesViewTransportTypeTyle.isHidden = true
@@ -243,6 +241,8 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         }
     }
     // ending setup CollectionView for Transport Type Tile
+    
+    // update Route View
     func updateRouteView(transportType: String) {
         for transportModel in city!.cityTransport {
             if transportType == transportModel.transportType {
@@ -318,7 +318,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
             present(activityVC, animated: true, completion: nil)
 
         } else {
-            print("the URL is not avaolable!")
+            print("the URL is not available!")
         }
     }
     
@@ -340,7 +340,6 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     func menuButtonTapped() {
         isDropDownCitiesMenuHidden = !isDropDownCitiesMenuHidden
         updateDropDownMenuOfCyties()
-        print(cityDropDownView.cityStackView.spacing)
     }
     func updateCollectionView(collectionView: UICollectionView, completion: () -> Void){
         collectionView.reloadData()
@@ -352,7 +351,6 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
             if city.name == sender.titleLabel?.text {
                 let cityChoosen = cities.remove(at: index!)
                 cities.insert(cityChoosen, at: 3)
-                print(cities)
                 self.city = cityChoosen
                 updateCollectionView(collectionView: transportTypeView.transportTypeCollectionView) {
                         updateCollectionViewLayout(currentCollectionView: transportTypeView.transportTypeCollectionView, layout: transportTypeColumnLayout, collectionViewHeightConstraint: transportTypeView.transportTypeCollectionViewHeight)
