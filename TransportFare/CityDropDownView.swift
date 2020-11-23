@@ -18,7 +18,7 @@ weak var delegate: CityDropDown?
     var citiesButtonsArray: [UIButton] = []
     var cities: [City] = []
     @IBOutlet var cityStackView: UIStackView!
-
+    @IBOutlet weak var cityEmblem: UIImageView!
     @IBAction func dropDownMenuButtonTapped (_ sender: UIButton){
         delegate?.menuButtonTapped()
     }
@@ -31,9 +31,9 @@ weak var delegate: CityDropDown?
             let button = UIButton()
             button.setTitle(city.name, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-            print(index)
             if index == 3 {
                 button.backgroundColor = UIColor(red: (0/255.0), green: (122/255.0), blue: (255/255.0), alpha: 1)
+                cityEmblem.image = UIImage(named: city.cityEmblemName)
             }
             button.addTarget(self, action: #selector(cytiButtonTapped), for: .touchUpInside)
             citiesButtonsArray.append(button)

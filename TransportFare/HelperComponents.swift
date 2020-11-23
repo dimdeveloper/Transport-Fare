@@ -9,6 +9,21 @@
 import Foundation
 import UIKit
 extension UIView {
+    func backgroundColor(){
+        let colorView = UIView(frame: bounds)
+        colorView.layer.backgroundColor = UIColor.white.cgColor
+        colorView.layer.cornerRadius = 5
+        colorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        insertSubview(colorView, at: 0)
+//        self.translatesAutoresizingMaskIntoConstraints = false
+//        colorView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+//        colorView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+//        colorView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+//        colorView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
+    }
+}
+extension UIView {
 
     func blur(_ blurRadius: Double = 2.5) {
         let blurredImage = getBlurryImage(blurRadius)

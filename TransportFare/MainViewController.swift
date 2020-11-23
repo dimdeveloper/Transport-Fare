@@ -15,6 +15,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     }
 
     static let shared = MainViewController()
+    var backButtonHelpShowing = true
     var vinnitsa: City?
     var lviv: City?
     var zhytomyr: City?
@@ -30,12 +31,20 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     var nightTime: Bool = false
     @IBOutlet weak var transportTypeView: TransportTypeView!
     @IBOutlet var routesCollectionView: UICollectionView!
+    @IBOutlet var backButtonHelpView: UIView!
+    @IBOutlet var backButtonHelpStackView: UIStackView!
     @IBOutlet weak var informationView: InformationView!
+    @IBOutlet var backButtonHelp: UIButton!
     @IBOutlet var cityDropDownView: CityDropDownView!
     @IBOutlet weak var paymentView: PaymentView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet var mainBackButton: UIButton!
     @IBOutlet var routesCollectionViewHeightConstraint: NSLayoutConstraint!
+    @IBAction func backButtonHelp(_ sender: UIButton) {
+        backButtonHelpView.isHidden = true
+        routesCollectionView.unblur()
+        backButtonHelpShowing = false
+    }
     @IBAction func backButton(_ sender: UIButton) {
         if paymentView.isHidden == false {
             paymentView.isHidden = true
@@ -81,11 +90,14 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         let zhitomirCityTransport: [TransportModel] = [zhytomyrTram, zhytomyrTrolleybus, zhytomyrAutobus]
         let vinnitsaCityTransport: [TransportModel] = [vinnitsaTram, vinnitsaTrolleybus, vinnitsaAutobus]
         let lvivCityTransport:[TransportModel] = [lvivTram, lvivTrolleybus]
-        vinnitsa = City(name: "Вінниця", cityTransport: vinnitsaCityTransport)
-        lviv = City(name: "Львів", cityTransport: lvivCityTransport)
-        zhytomyr = City(name: "Житомир", cityTransport: zhitomirCityTransport )
-        ivanoFrankivsk = City(name: "Івано-Франківськ", cityTransport: ivanoFrankivskCityTransport)
+        vinnitsa = City(name: "Вінниця", cityTransport: vinnitsaCityTransport, cityEmblemName: "Vinnitsa")
+        lviv = City(name: "Львів", cityTransport: lvivCityTransport, cityEmblemName: "Lviv")
+        zhytomyr = City(name: "Житомир", cityTransport: zhitomirCityTransport, cityEmblemName: "Zhytomir" )
+        ivanoFrankivsk = City(name: "Івано-Франківськ", cityTransport: ivanoFrankivskCityTransport, cityEmblemName: "Ivano-Frankivsk1")
         cities = Array(arrayLiteral: vinnitsa!, lviv!, zhytomyr!, ivanoFrankivsk!)
+        backButtonHelpStackView.backgroundColor()
+        backButtonHelpView.isHidden = true
+        backButtonHelp.layer.cornerRadius = 5
         paymentView.isHidden = true
         routesCollectionView.isHidden = true
         routesCollectionView.layer.cornerRadius = 5
@@ -231,7 +243,17 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         if collectionView == transportTypeView.transportTypeCollectionView {
         let transportTypeCell = collectionView.cellForItem(at: indexPath) as! TransportTypeCollectionViewCell
         let nameOfSelectedTransport = transportTypeCell.transportTypeLabel.text
-        updateRouteView(transportType: nameOfSelectedTransport!)
+            UIView.animate(withDuration: 0.0) {
+                self.updateRouteView(transportType: nameOfSelectedTransport!)
+            } completion: { _ in
+                if self.backButtonHelpShowing == true {
+                        self.routesCollectionView.blur()
+                        self.backButtonHelpView.isHidden = false
+                }
+            }
+
+        
+            
         } else {
             let routeNumberCell = collectionView.cellForItem(at: indexPath) as! RoutesCollectionViewCell
             let selectedRouteNumber = routeNumberCell.routesCollectionViewCellLabel.text!
