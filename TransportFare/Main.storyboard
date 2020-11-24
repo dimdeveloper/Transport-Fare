@@ -697,10 +697,6 @@ https://www.lifecell.ua/uk/mobilnij-zvyazok/korysni-poslugy/sms-kvytok/		</strin
                             <constraint firstItem="cn6-WU-Pmn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="yHA-jG-jnM"/>
                         </constraints>
                         <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="Div-gK-bsR"/>
-                                <exclude reference="dd3-va-l6D"/>
-                            </mask>
                             <mask key="constraints">
                                 <exclude reference="BJ3-bW-P20"/>
                             </mask>

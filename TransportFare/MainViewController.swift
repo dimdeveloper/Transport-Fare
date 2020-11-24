@@ -136,6 +136,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         transportTypeView.unblur()
         updateViewAfterRotateScreen()
+        routesCollectionView.unblur()
         UIView.animate(withDuration: 0.0) { [self] in
             updateViewAfterRotateScreen()
         } completion: { _ in
@@ -144,6 +145,12 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
             } completion: { [self] _ in
                 if !informationView.isHidden || !isDropDownCitiesMenuHidden {
                         transportTypeView.blur(2.0)
+                } else if backButtonHelpView.isHidden == false {
+                    UIView.animate(withDuration: 0.0) {
+                    } completion: { _ in
+                        routesCollectionView.blur(2.0)
+                    }
+
                 }
             }
         }
