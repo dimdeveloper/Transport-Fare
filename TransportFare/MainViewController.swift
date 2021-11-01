@@ -82,7 +82,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     // Flayout for Transport Type Tile and Routes Collection buttons, centering
     let transportTypeColumnLayout = FlowLayout()
     let routesViewColumnLayout = FlowLayout()
-    var somevariable: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         checkTimeOfDay()
