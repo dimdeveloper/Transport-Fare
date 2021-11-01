@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class FlowLayout: UICollectionViewFlowLayout {
-
+    var leftInset: CGFloat = 0.0
 //    required init(itemSize: CGSize?, minimumInteritemSpacing: CGFloat = 0, minimumLineSpacing: CGFloat = 0, sectionInset: UIEdgeInsets = .zero) {
 //        super.init()
 //        if let itemSize = itemSize {
@@ -46,8 +46,16 @@ class FlowLayout: UICollectionViewFlowLayout {
             }
 
             // Calculate the initial left inset
-            let totalInset = collectionView!.safeAreaLayoutGuide.layoutFrame.width - cellsTotalWidth - sectionInset.left - sectionInset.right - minimumInteritemSpacing * CGFloat(attributes.count - 1)
-            var leftInset = (totalInset / 2 * 10).rounded(.down) / 10 + sectionInset.left
+            if #available(iOS 11.0, *) {
+                let totalInset = collectionView!.safeAreaLayoutGuide.layoutFrame.width - cellsTotalWidth - sectionInset.left - sectionInset.right - minimumInteritemSpacing * CGFloat(attributes.count - 1)
+                leftInset = (totalInset / 2 * 10).rounded(.down) / 10 + sectionInset.left
+            } else {
+                let interItemSpacing = minimumInteritemSpacing * CGFloat(attributes.count - 1)
+                let totalInset = collectionView!.layer.bounds.width - cellsTotalWidth - sectionInset.left - sectionInset.right - interItemSpacing
+                
+                leftInset = (totalInset / 2 * 10).rounded(.down) / 10 + sectionInset.left
+            }
+            
 
             // Loop on cells to adjust each cell's origin and prepare leftInset for the next cell
             for attribute in attributes {

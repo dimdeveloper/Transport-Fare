@@ -13,6 +13,10 @@ extension UIView {
         let colorView = UIView(frame: bounds)
         colorView.layer.backgroundColor = UIColor.white.cgColor
         colorView.layer.cornerRadius = 5
+        colorView.layer.shadowColor = UIColor.black.cgColor
+        colorView.layer.shadowOpacity = 0.5
+        colorView.layer.shadowOffset = .zero
+        colorView.layer.shadowRadius = 10
         colorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         insertSubview(colorView, at: 0)
 //        self.translatesAutoresizingMaskIntoConstraints = false
@@ -33,13 +37,23 @@ extension UIView {
         blurredImageView.contentMode = .center
         addSubview(blurredImageView)
 
-        NSLayoutConstraint.activate([
-            blurredImageView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            blurredImageView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-            blurredImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            blurredImageView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
-            
-        ])
+      //  blurredImageView.layoutMargins.top = self.layoutMargins.top
+        
+        if #available(iOS 11.0, *) {
+            NSLayoutConstraint.activate([
+                blurredImageView.leadingAnchor.constraint( equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+                blurredImageView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+                blurredImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+                
+                blurredImageView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+                
+            ])
+        } else {
+            blurredImageView.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor).isActive = true
+            blurredImageView.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor).isActive = true
+            blurredImageView.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
+            blurredImageView.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor).isActive = true
+        }
     }
 
     func unblur() {

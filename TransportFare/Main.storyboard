@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -164,7 +163,7 @@
                                     <outlet property="transportTypeCollectionViewHeight" destination="lCh-v6-w7x" id="4lK-EB-GKp"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkS-Wv-x4H">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkS-Wv-x4H">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <inset key="contentEdgeInsets" minX="30" minY="30" maxX="0.0" maxY="0.0"/>
@@ -367,20 +366,10 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                     </stackView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vZr-s3-b51">
-                                        <rect key="frame" x="287" y="589" width="40" height="46"/>
-                                        <color key="tintColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="BOF-Vp-7eG"/>
-                                            <constraint firstAttribute="height" constant="40" id="IFa-Sj-FFC"/>
-                                        </constraints>
-                                        <imageReference key="image" image="hand.tap" catalog="system" symbolScale="large"/>
-                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="lZI-NT-Cl9" firstAttribute="leading" secondItem="BN1-h4-VRR" secondAttribute="leading" constant="30" id="6rQ-st-xWd"/>
-                                    <constraint firstAttribute="trailing" secondItem="vZr-s3-b51" secondAttribute="trailing" constant="87" id="dsb-bC-P9F"/>
                                     <constraint firstItem="lZI-NT-Cl9" firstAttribute="centerX" secondItem="BN1-h4-VRR" secondAttribute="centerX" id="pEB-7r-hUa"/>
                                     <constraint firstItem="lZI-NT-Cl9" firstAttribute="centerY" secondItem="BN1-h4-VRR" secondAttribute="centerY" id="sbl-ky-7yc"/>
                                 </constraints>
@@ -662,7 +651,6 @@ https://www.lifecell.ua/uk/mobilnij-zvyazok/korysni-poslugy/sms-kvytok/		</strin
                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                         <color key="tintColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vZr-s3-b51" firstAttribute="top" secondItem="qXK-ur-0W4" secondAttribute="bottom" constant="15" id="1CQ-TJ-uoc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IbJ-RQ-4IF" secondAttribute="trailing" id="2Wm-v7-ETY"/>
                             <constraint firstItem="cn6-WU-Pmn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="43W-Re-DFa"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zkS-Wv-x4H" secondAttribute="bottom" id="4zh-OT-Opu"/>
@@ -738,12 +726,8 @@ https://www.lifecell.ua/uk/mobilnij-zvyazok/korysni-poslugy/sms-kvytok/		</strin
         <image name="checkMarkChecked" width="100" height="100"/>
         <image name="checkMarkUnmark" width="100" height="100"/>
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
-        <image name="hand.tap" catalog="system" width="113" height="128"/>
         <image name="hryvniasign.circle" catalog="system" width="128" height="121"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
-        <systemColor name="darkTextColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
