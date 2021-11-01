@@ -82,7 +82,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
     // Flayout for Transport Type Tile and Routes Collection buttons, centering
     let transportTypeColumnLayout = FlowLayout()
     let routesViewColumnLayout = FlowLayout()
-    
+    var somevariable: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         checkTimeOfDay()
@@ -101,6 +101,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         paymentView.isHidden = true
         routesCollectionView.isHidden = true
         routesCollectionView.layer.cornerRadius = 5
+        
         // make shadow is awailable
         routesCollectionView.layer.masksToBounds = false
         shadowForView(shadowView: routesCollectionView)
@@ -124,6 +125,7 @@ class MainViewController: UIViewController, TransportType, UICollectionViewDataS
         traitCollectionDidChange(UIScreen.main.traitCollection)
 
     }
+    // adopt screen rotation
     func updateViewAfterRotateScreen(){
         transportTypeView.transportTypeCollectionView.reloadData()
         routesCollectionView.reloadData()

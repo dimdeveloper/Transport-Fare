@@ -12,4 +12,5 @@ class RoutesHeaderCollectionReusableView: UICollectionReusableView {
     @IBOutlet var routesCollectionViewTransportTypeName: UILabel!
     
     @IBOutlet var routesViewTransportTypeTyle: UIImageView!
+
 }
